@@ -1,17 +1,17 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
+  <div class="acceuil">
+    <h1>Bienvenue sur EducatiONLINE</h1>
     <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
+      Une plateforme mettant à disposition pour les enseignants du primaire, tous les informations sur la bonne gestion des pathologie de leurs élèves.<br>
+      Vous retrouverez : 
     </p>
-    <h3>Installed CLI Plugins</h3>
+    <h3>Plusieurs fiches d'informations sur différentes pathologies mentale regrouppant : </h3>
     <ul>
+      <router-link to="/formulaire">Fiche</router-link>
       <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
       <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
     </ul>
-    <h3>Essential Links</h3>
+    <h3>Des aides afin de mieux prendre en charge les élèves concernés</h3>
     <ul>
       <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
       <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
@@ -19,7 +19,7 @@
       <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
       <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
     </ul>
-    <h3>Ecosystem</h3>
+    <h3>Des contenues externes pour aller plus loin </h3>
     <ul>
       <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
       <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
@@ -32,10 +32,7 @@
 
 <script>
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
-  }
+  name: 'AcceuilPage',
 }
 </script>
 
