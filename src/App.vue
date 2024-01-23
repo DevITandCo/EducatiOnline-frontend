@@ -1,13 +1,18 @@
 <template>
-  <img alt="Logo Edu" src="./assets/logo-edu.png">
+  <my-header></my-header>
   <RouterView></RouterView>
+  <my-footer></my-footer>
 </template>
+
 <script>
+import Header from './components/Header.vue';
+import Footer from './components/Footer.vue';
 
 export default {
   name: 'App',
   components: {
-    
+    'my-header': Header,
+    'my-footer': Footer
   }
 }
 </script>
