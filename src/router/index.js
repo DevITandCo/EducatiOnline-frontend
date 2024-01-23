@@ -1,7 +1,7 @@
 import {createRouter, createWebHistory } from 'vue-router'
 
-import AcceuilPage from "../components/Acceuil.vue"
-import DeficiencyFormPage from "../components/DeficiencyForm.vue"
+import AcceuilPage from "@/views/Acceuil.vue"
+import DeficiencyFormPage from "@/views/DeficiencyForm.vue"
 import NotFound from '@/views/Notfound.vue'
 
 
