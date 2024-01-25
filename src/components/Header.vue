@@ -1,20 +1,20 @@
 <template>
     <header class="header">
-        <a class="header-brand" href="#">
+        <a class="header-brand" href="/">
             <img alt="Logo Edu" src="@/assets/logo-edu.png">
         </a>
-        <ul class="header-nav">
-            <li class="nav-item">
-                <router-link class="nav-link" to="/">Acceuil <span class="visually-hidden"></span></router-link>
-            </li>
-            <li class="nav-item">
-                <router-link class="nav-link" to="/connection">Connection <span class="visually-hidden"></span></router-link>
-            </li>
-        </ul>
         <form class="search-form">
             <input class="form-control" type="search" placeholder="Search" aria-label="Search">
             <button class="search-button" type="submit">Search</button>
         </form>
+        <ul class="header-nav">
+            <li class="nav-item">
+                <router-link class="nav-link" to="/connection">Connection<span class="visually-hidden"></span></router-link>
+            </li>
+            <li class="nav-item">
+                <router-link class="nav-link" to="/inscription">Inscription<span class="visually-hidden"></span></router-link>
+            </li>
+        </ul>
     </header>
 </template>
 

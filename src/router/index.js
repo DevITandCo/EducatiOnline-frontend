@@ -2,12 +2,18 @@ import {createRouter, createWebHistory } from 'vue-router'
 
 import AcceuilPage from "@/views/Acceuil.vue"
 import DeficiencyFormPage from "@/views/DeficiencyForm.vue"
+import LoginPage from '@/components/Login.vue'
+import SignupPage from '@/components/Signup.vue'
+import ForgotPasswordPage from '@/components/Forgotpassword.vue'
 import NotFound from '@/views/Notfound.vue'
 
 
 const routes = [
   { path: '/', name:'Acceuil',component: AcceuilPage},
   { path: '/formulaire', name:'Fiche', component: DeficiencyFormPage },
+  { path: '/connection', component: LoginPage },
+  { path: '/inscription', component: SignupPage },
+  { path: '/reinitialisation', component: ForgotPasswordPage },
   { path: '/:catchAll(.*)', name:'404Name', component: NotFound}
 ]
 
