@@ -6,6 +6,7 @@ import LoginPage from '@/components/Login.vue'
 import SignupPage from '@/components/Signup.vue'
 import ForgotPasswordPage from '@/components/Forgotpassword.vue'
 import NotFound from '@/views/Notfound.vue'
+import FaqPage from '@/components/Faq.vue'
 
 
 const routes = [
@@ -14,6 +15,7 @@ const routes = [
   { path: '/connection', component: LoginPage },
   { path: '/inscription', component: SignupPage },
   { path: '/reinitialisation', component: ForgotPasswordPage },
+  { path: '/faq', name:'FAQ', component: FaqPage },
   { path: '/:catchAll(.*)', name:'404Name', component: NotFound}
 ]
 

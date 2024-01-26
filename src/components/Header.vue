@@ -3,8 +3,8 @@
         <a class="header-brand" href="/">
             <img alt="Logo Edu" src="@/assets/logo-edu.png">
         </a>
-        <form class="search-form">
-            <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+        <form @submit.prevent="searchDeficiency" class="search-form">
+            <input class="form-control" type="search" placeholder="Search" aria-label="Search" v-model="input">
             <button class="search-button" type="submit">Search</button>
         </form>
         <ul class="header-nav">
@@ -19,8 +19,41 @@
 </template>
 
 <script>
+const axios = require('axios');
 export default {
+    data() {
+            return {
+            input: '',
+            id: ''
+            }
+        },
   name: 'Header',
+  methods: {
+    searchDeficiency(){
+        const self = this; // Stocke la référence de 'this'
+        axios.get('http://localhost:3000/v1/article/getAll', {
+            }).then(function (response) {
+                var responseArray = response.data.data.existingArticle;
+                responseArray.forEach(element => {
+                if(self.input == element.title){
+                    console.log(element.title)
+                    self.id = element._id;
+                    console.log(self.id);
+                }
+                });
+            }).catch(function (error) {
+                console.log(error);
+            });
+        axios.get('http://localhost:3000/v1/article/get', {
+            id:'65b2792954c1d3002e653ce2'
+            }).then(function (response) {
+                console.log(response);
+                self.$router.push({ path: '/formulaire', query: { titre: self.input } });
+            }).catch(function (error) {
+                console.log(error);
+            });
+    }
+  }
 }
 </script>
 
