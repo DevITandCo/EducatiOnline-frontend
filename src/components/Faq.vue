@@ -5,7 +5,7 @@
         <v-layout row wrap>
           <v-flex xs12>
             <v-card height="400" color="transparent" flat>
-              <br /> <br />
+              <br /> <br /> <br /> <br />
               <div class="faq-question">
                 <strong>1. Pourriez-vous ajouter une fiche sur ..... s'il-vous-plaît ?</strong>
               </div>
@@ -101,6 +101,7 @@
     </div>
 </template>
 
+
 <style>
     .faq-template{
     display: flex;
@@ -110,19 +111,21 @@
 
     .display-3 {
         text-align: center;
+        text-decoration: underline;
     }
 
     .faq-question {
         text-align: left;
         font-size: 20px;
-        margin-left: 5px;
+        margin-left: 75px;
         margin-bottom: 2px; /* Add some spacing between questions */
+        color: #0375e3;
     }
 
     .faq-answer {
         text-align: left;
         font-size: 20px;
-        margin-left: 75px;
+        margin-left: 5px;
         margin-bottom: 30px; /* Add some spacing between answers */
     }
 </style>
