@@ -1,11 +1,23 @@
 <template>
     <header class="header">
-        <a class="header-brand" href="/">
+        <router-link class="header-brand" to="/">
             <img alt="Logo Edu" src="@/assets/logo-edu.png">
-        </a>
-        <form class="search-form">
-            <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-            <button class="search-button" type="submit">Search</button>
+        </router-link>
+        <form @submit.prevent="" class="search-form">
+            <input class="form-control" type="text" placeholder="Search" aria-label="Search" v-model="input">
+            <div class="list">
+                <router-link
+                    v-for="(element) in filteredList()"
+                    :key="element"
+                    :to="element.path"
+                    class="link"
+                    @click="clearSearch"
+                >{{element.title}}
+                </router-link>
+                <div class="link" v-if="input&&!filteredList().length">
+                    <p>Aucuns résultats</p>
+                </div>
+            </div>
         </form>
         <ul class="header-nav">
             <li class="nav-item">
@@ -18,9 +30,37 @@
     </header>
 </template>
 
-<script>
-export default {
-  name: 'Header',
+<script setup>
+import { axiosClient } from '@/apiClient'; 
+import { ref } from "vue";
+
+let input = ref("");
+const articles = [];
+
+function refresh() {
+    axiosClient.get('article/getAll')
+    .then(function (response) {
+        var responseArray = response.data.data.existingArticle;
+        responseArray.forEach(element => {
+            articles.push({title: element.title, path: "/formulaire?id=" + element._id})
+        });
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+refresh()
+
+function filteredList() {
+    if (input.value == "") {
+        return []
+    }
+  return articles.filter((element) =>
+    element.title.toLowerCase().includes(input.value.toLowerCase())
+  );
+}
+
+function clearSearch() {
+    input.value = "";
 }
 </script>
 
@@ -91,4 +131,25 @@ export default {
 }
 
 /* Additional styles for dropdown, disabled links, etc., if needed */
+.search-form {
+    display: flex;
+    flex-direction: column;
+    /* background-color: white; */
+}
+
+.list {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 55px;
+}
+
+.link {
+    color: black;
+    width: 20vw;
+    height: 5vh;
+    margin-bottom: 0;
+    background-color: white;
+    border: 1px solid black;
+}
 </style>

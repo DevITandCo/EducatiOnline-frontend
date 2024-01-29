@@ -29,7 +29,7 @@
 
 
 <script>
-const axios = require('axios')
+import { axiosClient } from '@/apiClient';
 export default {
     name: 'SignupPage',
     data() {
@@ -43,25 +43,23 @@ export default {
     },
     methods: {
         submitForm() {
-            // Handle form submission
-            axios.get('http://localhost:3000/v1/health/ping'
-            ).then(function (response) {
-                console.log(response);
+            axiosClient.post('auth/sign-up', {
+                username: this.lastName,
+                email: this.email,
+                password: this.password
+            }).then(function(response) {
+                console.log(response)
             }).catch(function (error) {
                 console.log(error);
             });
-            console.log("Form data:", this.firstName, this.lastName, this.email, this.password);
-            // axios.post('http://localhost:3000/v1/auth/sign-up', {
-            //     username: this.lastName,
-            //     email: this.email,
-            //     password: this.password
-            // })
         },
-        // checkPasswordLength(password){
-        //     if(this.password.length < 8){
-        //         try catch
-        //     }
-        // }
+        checkPasswordLength(password) {
+            if (password.length < 8) {
+                console.error("Le mot de passe doit contenir au moins 8 caractères.");
+                return false;
+            }
+            return true;
+        }
     }
 }
 </script>
