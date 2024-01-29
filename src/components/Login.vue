@@ -20,28 +20,38 @@
 </template>
 
 <script>
-const axios = require('axios')
+import { axiosClient } from '@/apiClient';
+
 export default {
-    name:'LoginPage',
+    name: 'ArticlePage',
     data() {
         return {
-            email: '',
-            password: '',
-            showPassword: false,
+            articles: [],
+            input: '',
         }
     },
+    created() {
+        this.refresh();
+    },
     methods: {
-        submitForm() {
-            // Handle form submission
-            console.log("Form data:", this.email, this.password);
-            axios.post('http://localhost:3000/v1/auth/sign-in', {
-                email: this.email,
-                password: this.password
-            }).then(function (response) {
-                console.log(response);
-            }).catch(function (error) {
+        refresh() {
+            axiosClient.get('article/getAll')
+            .then((response) => {
+                var responseArray = response.data.data.existingArticle;
+                responseArray.forEach(element => {
+                    this.articles.push({ title: element.title, path: "/formulaire?id=" + element._id });
+                });
+            }).catch((error) => {
                 console.log(error);
             });
+        },
+        filteredList() {
+            if (this.input === "") {
+                return [];
+            }
+            return this.articles.filter((element) =>
+                element.title.toLowerCase().includes(this.input.toLowerCase())
+            );
         }
     }
 }
