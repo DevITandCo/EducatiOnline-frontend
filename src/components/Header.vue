@@ -1,20 +1,22 @@
+
 <template>
     <header class="header">
         <router-link class="header-brand" to="/">
             <img alt="Logo Edu" src="@/assets/logo-edu.png">
         </router-link>
-        <form @submit.prevent="" class="search-form">
-            <input class="form-control" type="text" placeholder="Search" aria-label="Search" v-model="input">
+        <form @submit.prevent="searchDeficiency" class="search-form">
+            <input class="form-control" type="search" placeholder="Search" aria-label="Search" v-model="input" v-on:click="clearSearch">
+            <button class="search-button" type="submit">Search</button>
             <div class="list">
                 <router-link
                     v-for="(element) in filteredList()"
                     :key="element"
                     :to="element.path"
                     class="link"
-                    @click="clearSearch"
+                    @click="redirect"
                 >{{element.title}}
                 </router-link>
-                <div class="link" v-if="input&&!filteredList().length">
+                <div class="link" v-if="input && !filteredList().length">
                     <p>Aucuns résultats</p>
                 </div>
             </div>
@@ -46,32 +48,55 @@ const store = useStore();
 const isLoggedIn = computed(() => store.state.isLoggedIn); // Read the value of isLoggedIn, it is initially to false
 
 let input = ref("");
-const articles = [];
+var articles = [];
 
-function refresh() {
+const refresh = () => {
     axiosClient.get('article/getAll')
-    .then(function (response) {
-        var responseArray = response.data.data.existingArticle;
+    .then(response => {
+        const responseArray = response.data.data.existingArticle;
+        articles = []
         responseArray.forEach(element => {
-            articles.push({title: element.title, path: "/formulaire?id=" + element._id})
+            articles.push({ title: element.title, path: "/formulaire?id=" + element._id });
         });
-    }).catch(function (error) {
-        console.log(error);
+    })
+    .catch(error => {
+        console.error(error);
     });
-}
-refresh()
+};
 
-function filteredList() {
-    if (input.value == "") {
-        return []
-    }
-  return articles.filter((element) =>
-    element.title.toLowerCase().includes(input.value.toLowerCase())
-  );
-}
+const searchDeficiency = () => {
+    axiosClient.get('article/getAll')
+    .then(response => {
+        const responseArray = response.data.data.existingArticle;
+        let found = false;
+        responseArray.forEach(element => {
+            if (input.value === element.title) {
+                found = true;
+                this.$router.push({ path: '/formulaire', query: { titre: input.value } });
+            }
+        });
+        if (!found) {
+            console.log("No match found");
+        }
+    })
+    .catch(error => {
+        console.error(error);
+    });
+};
+
+const filteredList = () => {
+    return input.value != "" ? articles.filter(element => 
+        element.title.toLowerCase().includes(input.value.toLowerCase())
+    ) : [];
+};
 
 function clearSearch() {
     input.value = "";
+refresh()
+}
+
+function redirect(){
+    clearSearch();
 }
 
 function logout() {
@@ -126,7 +151,7 @@ function logout() {
 
 .search-form {
     display: flex;
-    align-items: center;
+    flex-direction: column;
 }
 
 .form-control {
@@ -147,13 +172,6 @@ function logout() {
 
 .search-button:hover {
     background-color: #5a6268; /* A slightly lighter shade for hover */
-}
-
-/* Additional styles for dropdown, disabled links, etc., if needed */
-.search-form {
-    display: flex;
-    flex-direction: column;
-    /* background-color: white; */
 }
 
 .list {
