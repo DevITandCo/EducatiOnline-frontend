@@ -3,7 +3,8 @@
       <h1>{{article.title}}</h1>
       <li class="nav-item">
         <!-- For now it's disable to prevent missclicks -->
-        <p><button v-on:click="deleteArticle()" :disabled="true">Supprimer l'article</button></p> 
+        <!-- <p><button v-on:click="deleteArticle()" :disabled="true">Supprimer l'article</button></p>  -->
+        <a id="edit">Edit article</a>
       </li>
       <h3>Pathologies</h3>
       <p>{{ article.pathology }}</p>
@@ -69,27 +70,13 @@
                   article.additional = foundArticle.additional
                   article.related = foundArticle.related
 
+                  let obj = document.getElementById('edit')
+                  obj.setAttribute('href', "/edit?id=" + article.id)
                 }).catch(function (error) {
                     console.log(error);
                 });
           }
         },
-        update() {
-          console.log('submit')
-          console.log(this.$data.article.id)
-          console.log(this.$data.article.title)
-          console.log(this.$data.article.pathologie)
-          console.log(this.$data.article.symptoms)
-        },
-        deleteArticle(){
-          axiosClient.post('/article/delete', {"id": this.$data.article.id}
-                ).then(function (response) {
-                // TODO toast success
-                console.log(response)
-                }).catch(function (error) {
-                    console.log(error)
-                });
-        }
       },
       beforeMount: function() {
         // use is when page changes

@@ -50,8 +50,12 @@
             class="txt_field"
             v-model="article.related"
           ></textarea>
-          <p><button v-on:click="create()">Create</button></p>
-          <p><button v-on:click="update()">Update</button></p>
+
+          <div class="cud_articles">
+            <h4><button v-on:click="createArticle()">Create</button>
+            <button v-on:click="updateArticle()">Update</button>
+            <button v-on:click="deleteArticle()">Delete</button></h4>
+          </div>
         </form>
       </div>
   </template>
@@ -110,13 +114,13 @@
             });
           }
         },
-        create() {
+        createArticle() {
           const data = this.$data.article
           axiosClient.post('/article/create', 
             {
               title: data.title,
               pathology: data.pathology,
-              symptomes: data.symptomes,
+              symptoms: data.symptoms,
               contributions: data.contributions,
               procedures: data.procedures,
               additional: data.additional,
@@ -129,14 +133,14 @@
             console.log(error);
         });
         },
-        update() {
+        updateArticle() {
           let data = this.$data.article
           axiosClient.post('/article/update', 
             {
               id: data.id,
               title: data.title,
               pathology: data.pathology,
-              symptomes: data.symptomes,
+              symptoms: data.symptoms,
               contributions: data.contributions,
               procedures: data.procedures,
               additional: data.additional,
@@ -148,16 +152,21 @@
         }).catch(function (error) {
             console.log(error);
         });
+        },
+        deleteArticle(){
+          const data = this.$data.article
+          axiosClient.post('/article/delete', {"id": data.article.id}
+                ).then(function (response) {
+                // TODO toast success
+                console.log(response)
+                }).catch(function (error) {
+                    console.log(error)
+                });
         }
       },
       beforeMount: function() {
-        // use is when page changes
         this.init()
       },
-      // updated: function() {
-      //   // use it when only parameter changes
-      //   this.init()
-      // },
   }
   </script>
   
@@ -192,9 +201,15 @@
       /* width: 10vw; */
     }
   
-    .txt_pathology {
-      /* text-align: center; */
-      /* width: 10vw; */
+    .cud_articles {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: row;
+      margin: 20px;
+    }
+    .cud_articles a {
+      flex: auto;
     }
   </style>
     
