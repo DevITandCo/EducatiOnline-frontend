@@ -162,6 +162,12 @@ function logout() {
 }
 
 
+.list {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 55px;
+}
 
 .link {
     color: black;
