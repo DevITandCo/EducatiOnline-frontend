@@ -21,42 +21,37 @@
 
 <script>
 import { axiosClient } from '@/apiClient';
+import { toast } from 'vue3-toastify';
 
 export default {
-  name: 'DeficiencyFormPage',
-  props: {
-    id: String,
-    mail: String,
-    username: String,
-    token: String
-  },
-  data() {
-    return {
-      user: {
-        id: '',
-        mail: '',
-        username: '',
-        token: '',
-        email: '',
-        passwword: ''
-      }
-    }
-  },
-  methods: {
-    login() {
-        let User = this
-        axiosClient.post('http://localhost:3000/v1/auth/sign-in',
-         {"email": User.email, "password": User.password}
-                    ).then(function (response) {
-                        console.log('response')
-                        console.log(response)
-                    }).catch(function (error) {
-                        console.log(error);
-                    });
+    name: 'Signin',
+    data() {
+        return {
+            email: '',
+            password: '',
+            showPassword: false
+        };
+    },
+    methods: {
+        submitForm() {
+            axiosClient.post('auth/sign-in', {
+                email: this.email,
+                password: this.password
+            }).then(response => {
+                console.log(response);
+                toast.success('Connexion réussie !');
+                this.$store.commit('setLoggedIn'); // Set isLoggedIn to true
+                this.$router.push('/'); // Redirection to path "/"
+            }).catch(error => {
+                console.log(error);
+                toast.error('E-mail ou mot de passe incorrect.');
+            });
+
         }
     }
 }
 </script>
+
 
 <style>
     .login-template{

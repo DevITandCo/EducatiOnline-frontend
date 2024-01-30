@@ -1,11 +1,9 @@
-<template>
     <div class="deficiency">
-      <h1>titre</h1>
+      <h1>{{article.title}}</h1>
       <li class="nav-item">
         <!--<router-link class="nav-link" to="/delete?id={article.id}">Supprimer l'article<span class="visually-hidden"></span></router-link>-->
         <p><button v-on:click="deleteArticle()">Supprimer l'article</button></p> 
       </li>
-      <p>{{ article.title }}</p>
       <h3>Pathologies</h3>
       <p>{{ article.pathology }}</p>
       <h3>Symptomes</h3>
@@ -23,6 +21,7 @@
     
   <script>
   import { axiosClient } from '@/apiClient';
+
   
   export default {
     name: 'EditDeficiencyFormPage',

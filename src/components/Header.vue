@@ -22,11 +22,18 @@
             </div>
         </form>
         <ul class="header-nav">
-            <li class="nav-item">
-                <router-link class="nav-link" to="/connection">Connection<span class="visually-hidden"></span></router-link>
+            <li class="nav-item" v-if="!isLoggedIn">
+                <router-link class="nav-link" to="/connection">Connexion</router-link>
             </li>
-            <li class="nav-item">
-                <router-link class="nav-link" to="/inscription">Inscription<span class="visually-hidden"></span></router-link>
+            <li class="nav-item" v-if="!isLoggedIn">
+                <router-link class="nav-link" to="/inscription">Inscription</router-link>
+            </li>
+            <li class="nav-item" v-if="isLoggedIn">
+                <!-- redirects to 404 for now -->
+                <router-link class="nav-link" to="/profil">Profil</router-link>
+            </li>
+            <li class="nav-item" v-if="isLoggedIn">
+                <button class="nav-link" @click="logout">Déconnexion</button>
             </li>
         </ul>
     </header>
@@ -34,7 +41,11 @@
 
 <script setup>
 import { axiosClient } from '@/apiClient'; 
-import { ref } from "vue";
+import { ref, computed } from "vue";
+import { useStore } from 'vuex';
+
+const store = useStore();
+const isLoggedIn = computed(() => store.state.isLoggedIn); // Read the value of isLoggedIn, it is initially to false
 
 let input = ref("");
 var articles = [];
@@ -86,6 +97,14 @@ refresh()
 
 function redirect(){
     clearSearch();
+}
+
+function logout() {
+    // Update the isLoggedIn state
+    store.commit('updateIsLoggedIn', false);
+
+    // Refresh the page
+    location.reload();
 }
 </script>
 

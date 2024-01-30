@@ -2,19 +2,29 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    toasts: []
+    toasts: [],
+    isLoggedIn: false
   },
-  getters:{
-
+  getters: {
+    isLoggedIn: state => state.isLoggedIn
   },
   mutations: {
     addToast(state, toast) {
       state.toasts.push(toast);
     },
     clearToast(state, title) {
-      const index = state.toasts.findIndex((toast) => toast.title === title); // find toast
-      state.toasts.splice(index, 1); // remove toast from array
-    }
+      const index = state.toasts.findIndex((toast) => toast.title === title);
+      state.toasts.splice(index, 1);
+    },
+    setLoggedIn(state) {
+      state.isLoggedIn = true;
+    },
+    setLoggedOut(state) {
+      state.isLoggedIn = false;
+    },
+    updateIsLoggedIn(state, isLoggedIn) {
+      state.isLoggedIn = isLoggedIn;
+  }
   },
   actions: {
   },
