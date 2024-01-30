@@ -117,7 +117,7 @@
     .faq-question {
         text-align: left;
         font-size: 20px;
-        margin-left: 75px;
+        margin-left: 30px;
         margin-bottom: 2px; /* Add some spacing between questions */
         color: #0375e3;
     }
@@ -125,7 +125,7 @@
     .faq-answer {
         text-align: left;
         font-size: 20px;
-        margin-left: 5px;
+        margin-left: 15px;
         margin-bottom: 30px; /* Add some spacing between answers */
     }
 </style>
