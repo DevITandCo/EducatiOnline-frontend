@@ -12,7 +12,7 @@ export default {
   name: 'App',
   components: {
     'my-header': Header,
-    'my-footer': Footer
+    'my-footer': Footer,
   }
 }
 </script>

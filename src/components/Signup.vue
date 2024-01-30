@@ -30,8 +30,10 @@
 
 <script>
 import { axiosClient } from '@/apiClient';
+import { toast } from 'vue3-toastify';
+
 export default {
-    name: 'SignupPage',
+    name: 'Signup',
     data() {
         return {
             firstName: '',
@@ -43,15 +45,22 @@ export default {
     },
     methods: {
         submitForm() {
-            axiosClient.post('auth/sign-up', {
-                username: this.lastName,
-                email: this.email,
-                password: this.password
-            }).then(function(response) {
-                console.log(response)
-            }).catch(function (error) {
-                console.log(error);
-            });
+            if (this.checkPasswordLength(this.password)) {
+                axiosClient.post('auth/sign-up', {
+                    username: this.lastName,
+                    email: this.email,
+                    password: this.password
+                }).then(response => {
+                    console.log(response);
+                    toast.success('success', 'Compte créé avec succès!');
+                    this.resetForm();
+                }).catch(error => {
+                    console.log(error);
+                    toast.error('error', 'Une erreur s\'est produite lors de la création du compte.');
+                });
+            } else {
+                toast.error("Le mot de passe doit contenir plus de 8 caractères");
+            }
         },
         checkPasswordLength(password) {
             if (password.length < 8) {
@@ -59,6 +68,12 @@ export default {
                 return false;
             }
             return true;
+        },
+        resetForm() {
+            this.firstName = '';
+            this.lastName = '';
+            this.email = '';
+            this.password = '';
         }
     }
 }

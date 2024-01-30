@@ -21,41 +21,36 @@
 
 <script>
 import { axiosClient } from '@/apiClient';
+import { toast } from 'vue3-toastify';
 
 export default {
-    name: 'ArticlePage',
+    name: 'Signin',
     data() {
         return {
-            articles: [],
-            input: '',
-        }
-    },
-    created() {
-        this.refresh();
+            email: '',
+            password: '',
+            showPassword: false
+        };
     },
     methods: {
-        refresh() {
-            axiosClient.get('article/getAll')
-            .then((response) => {
-                var responseArray = response.data.data.existingArticle;
-                responseArray.forEach(element => {
-                    this.articles.push({ title: element.title, path: "/formulaire?id=" + element._id });
-                });
-            }).catch((error) => {
+        submitForm() {
+            axiosClient.post('auth/sign-in', {
+                email: this.email,
+                password: this.password
+            }).then(response => {
+                console.log(response);
+                toast.success('Connexion réussie !');
+                this.$store.commit('setLoggedIn'); // Set isLoggedIn to true
+                this.$router.push('/'); // Redirection to path "/"
+            }).catch(error => {
                 console.log(error);
+                toast.error('E-mail ou mot de passe incorrect.');
             });
-        },
-        filteredList() {
-            if (this.input === "") {
-                return [];
-            }
-            return this.articles.filter((element) =>
-                element.title.toLowerCase().includes(this.input.toLowerCase())
-            );
         }
     }
 }
 </script>
+
 
 <style>
     .login-template{
