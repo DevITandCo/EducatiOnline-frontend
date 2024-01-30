@@ -1,21 +1,50 @@
 
 <template>
     <div class="deficiency">
-      <h1>titre</h1>
-      <p>{{ article.title }}</p>
-      <h3>Pathologies</h3>
-      <p>{{ article.pathology }}</p>
-      <h3>Symptomes</h3>
-      <p>{{ article.symptoms }}</p>
-      <h3>Contributions</h3>
-      <p>{{ article.contributions }}</p>
-      <h3>Procédures</h3>
-      <p>{{ article.procedures }}</p>
-      <h3>En savoir plus</h3>
-      <p>{{ article.additional }}</p>
-      <h3>Fiches liées</h3>
-      <p>{{ article.related }}</p>
-    </div>
+      <form @submit.prevent="submitForm">
+        <h1>titre</h1>
+        <textarea
+          class="txt_field txt_title"
+          id="txt_title"
+          v-model="article.title"
+        >
+        </textarea>
+        <h3>Pathologie</h3>
+        <!-- <p>{{ article.pathology }}</p> -->
+        <textarea
+          class="txt_field txt_pathology"
+          id="txt_pathology"
+          v-model="article.pathology"
+        >
+        </textarea>
+        <h3>Symptomes</h3>
+        <textarea
+          class="txt_field"
+          v-model="article.symptoms"
+        ></textarea>
+        <h3>Contributions</h3>
+        <textarea
+          class="txt_field"
+          v-model="article.contributions"
+        ></textarea>
+        <h3>Procédures</h3>
+        <textarea
+          class="txt_field"
+          v-model="article.procedures"
+        ></textarea>
+          <h3>En savoir plus</h3>
+          <textarea
+            class="txt_field"
+            v-model="article.additional"
+          ></textarea>
+          <h3>Fiches liées</h3>
+          <textarea
+            class="txt_field"
+            v-model="article.related"
+          ></textarea>
+          <p><button v-on:click="update()">Update</button></p>
+        </form>
+      </div>
   </template>
     
   <script>
@@ -65,7 +94,6 @@
                   article.procedures = foundArticle.procedures
                   article.additional = foundArticle.additional
                   article.related = foundArticle.related
-
                 }).catch(function (error) {
                     console.log(error);
                 });
@@ -74,9 +102,9 @@
         update() {
           console.log('submit')
           console.log(this.$data.article.id)
-          console.log(this.$data.article.title)
-          console.log(this.$data.article.pathologie)
-          console.log(this.$data.article.symptoms)
+          console.log(this.$data.article.l)
+          console.log(this.$data.article.pathology)
+          console.log(this.$data.article.symptomes)
         }
       },
       beforeMount: function() {
@@ -116,12 +144,12 @@
       max-height: 20vh; */
     }
   
-    .txt_titre {
+    .txt_title {
       text-align: center;
       /* width: 10vw; */
     }
   
-    .txt_pathologie {
+    .txt_pathology {
       /* text-align: center; */
       /* width: 10vw; */
     }
