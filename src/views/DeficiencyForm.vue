@@ -31,33 +31,60 @@
 </template>
   
 <script>
-import { onMounted, ref } from 'vue';
-import { useRoute } from 'vue-router';
 import { axiosClient } from '@/apiClient';
 
 export default {
-  name: 'DeficiencyFormPage',
+  name: 'EditDeficiencyFormPage',
   props: {
-    title: String
+    id: String,
+    title: String,
+    description: String,
+    content: String
   },
-  setup() {
-    const route = useRoute();
-    const article = ref({});
-
-    onMounted(() => {
-      const articleId = route.query.id;
-      axiosClient.get(`article/get`, { params: { id: articleId } })
-        .then(response => {
-          article.value = response.data.data.existingArticle;
-          console.log(article.value);
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    });
-
-    return { article };
-  }
+  data() {
+    return {
+      mode: 'r',
+      article: {
+        id: '',
+        title: '',
+        description: '',
+        content: ''
+      }
+    }
+  },
+  methods: {
+      init() {
+        var url = new URL(window.location)
+        var id = url.searchParams.get('id')
+        const article = this.$data.article
+        if (id != null) {
+        let res = axiosClient.get('http://localhost:3000/v1/article/get', {params :{"id": id}}
+            ).then(function (response) {
+              res =  response;
+              let foundArticle = res.data.data.existingArticle
+              article.id = foundArticle._id
+              article.title = foundArticle.title
+              article.description = foundArticle.description
+              article.content = foundArticle.content
+            }).catch(function (error) {
+                res = error;
+            });
+        }
+        }
+    },
+    beforeMount: function() {
+      // use is when page changes
+      this.init()
+    },
+    updated: function() {
+      // use it when only parameter changes
+      this.init()
+    },
+    resize: function () {
+      console.log('here')
+      this.style.height = "auto";
+      this.style.height = this.scrollHeight + 10 + "px";
+    }
 }
 </script>
 
