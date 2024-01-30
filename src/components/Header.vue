@@ -1,3 +1,4 @@
+
 <template>
     <header class="header">
         <router-link class="header-brand" to="/">
@@ -12,7 +13,7 @@
                     :key="element"
                     :to="element.path"
                     class="link"
-                    @click="clearSearch"
+                    @click="redirect"
                 >{{element.title}}
                 </router-link>
                 <div class="link" v-if="input && !filteredList().length">
@@ -36,12 +37,13 @@ import { axiosClient } from '@/apiClient';
 import { ref } from "vue";
 
 let input = ref("");
-const articles = [];
+var articles = [];
 
 const refresh = () => {
     axiosClient.get('article/getAll')
     .then(response => {
         const responseArray = response.data.data.existingArticle;
+        articles = []
         responseArray.forEach(element => {
             articles.push({ title: element.title, path: "/formulaire?id=" + element._id });
         });
@@ -72,7 +74,7 @@ const searchDeficiency = () => {
 };
 
 const filteredList = () => {
-    return input.value ? articles.filter(element => 
+    return input.value != "" ? articles.filter(element => 
         element.title.toLowerCase().includes(input.value.toLowerCase())
     ) : [];
 };
@@ -80,6 +82,10 @@ const filteredList = () => {
 function clearSearch() {
     input.value = "";
 refresh()
+}
+
+function redirect(){
+    clearSearch();
 }
 </script>
 
