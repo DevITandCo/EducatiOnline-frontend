@@ -4,7 +4,7 @@
             <img alt="Logo Edu" src="@/assets/logo-edu.png">
         </router-link>
         <form @submit.prevent="searchDeficiency" class="search-form">
-            <input class="form-control" type="search" placeholder="Search" aria-label="Search" v-model="input">
+            <input class="form-control" type="search" placeholder="Search" aria-label="Search" v-model="input" v-on:click="clearSearch">
             <button class="search-button" type="submit">Search</button>
             <div class="list">
                 <router-link
@@ -43,7 +43,7 @@ const refresh = () => {
     .then(response => {
         const responseArray = response.data.data.existingArticle;
         responseArray.forEach(element => {
-            articles.value.push({ title: element.title, path: "/formulaire?id=" + element._id });
+            articles.push({ title: element.title, path: "/formulaire?id=" + element._id });
         });
     })
     .catch(error => {
@@ -72,7 +72,7 @@ const searchDeficiency = () => {
 };
 
 const filteredList = () => {
-    return input.value ? articles.value.filter(element => 
+    return input.value ? articles.filter(element => 
         element.title.toLowerCase().includes(input.value.toLowerCase())
     ) : [];
 };
