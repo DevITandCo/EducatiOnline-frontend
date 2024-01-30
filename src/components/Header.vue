@@ -1,11 +1,24 @@
 <template>
     <header class="header">
-        <a class="header-brand" href="/">
+        <router-link class="header-brand" to="/">
             <img alt="Logo Edu" src="@/assets/logo-edu.png">
-        </a>
+        </router-link>
         <form @submit.prevent="searchDeficiency" class="search-form">
             <input class="form-control" type="search" placeholder="Search" aria-label="Search" v-model="input">
             <button class="search-button" type="submit">Search</button>
+            <div class="list">
+                <router-link
+                    v-for="(element) in filteredList()"
+                    :key="element"
+                    :to="element.path"
+                    class="link"
+                    @click="clearSearch"
+                >{{element.title}}
+                </router-link>
+                <div class="link" v-if="input && !filteredList().length">
+                    <p>Aucuns résultats</p>
+                </div>
+            </div>
         </form>
         <ul class="header-nav">
             <li class="nav-item">
@@ -18,42 +31,55 @@
     </header>
 </template>
 
-<script>
-const axios = require('axios');
-export default {
-    data() {
-            return {
-            input: '',
-            id: ''
+<script setup>
+import { axiosClient } from '@/apiClient'; 
+import { ref } from "vue";
+
+let input = ref("");
+const articles = [];
+
+const refresh = () => {
+    axiosClient.get('article/getAll')
+    .then(response => {
+        const responseArray = response.data.data.existingArticle;
+        responseArray.forEach(element => {
+            articles.value.push({ title: element.title, path: "/formulaire?id=" + element._id });
+        });
+    })
+    .catch(error => {
+        console.error(error);
+    });
+};
+
+const searchDeficiency = () => {
+    axiosClient.get('article/getAll')
+    .then(response => {
+        const responseArray = response.data.data.existingArticle;
+        let found = false;
+        responseArray.forEach(element => {
+            if (input.value === element.title) {
+                found = true;
+                this.$router.push({ path: '/formulaire', query: { titre: input.value } });
             }
-        },
-  name: 'Header',
-  methods: {
-    searchDeficiency(){
-        const self = this; // Stocke la référence de 'this'
-        axios.get('http://localhost:3000/v1/article/getAll', {
-            }).then(function (response) {
-                var responseArray = response.data.data.existingArticle;
-                responseArray.forEach(element => {
-                if(self.input == element.title){
-                    console.log(element.title)
-                    self.id = element._id;
-                    console.log(self.id);
-                }
-                });
-            }).catch(function (error) {
-                console.log(error);
-            });
-        axios.get('http://localhost:3000/v1/article/get', {
-            id:'65b2792954c1d3002e653ce2'
-            }).then(function (response) {
-                console.log(response);
-                self.$router.push({ path: '/formulaire', query: { titre: self.input } });
-            }).catch(function (error) {
-                console.log(error);
-            });
-    }
-  }
+        });
+        if (!found) {
+            console.log("No match found");
+        }
+    })
+    .catch(error => {
+        console.error(error);
+    });
+};
+
+const filteredList = () => {
+    return input.value ? articles.value.filter(element => 
+        element.title.toLowerCase().includes(input.value.toLowerCase())
+    ) : [];
+};
+
+function clearSearch() {
+    input.value = "";
+refresh()
 }
 </script>
 
@@ -100,7 +126,7 @@ export default {
 
 .search-form {
     display: flex;
-    align-items: center;
+    flex-direction: column;
 }
 
 .form-control {
@@ -123,5 +149,19 @@ export default {
     background-color: #5a6268; /* A slightly lighter shade for hover */
 }
 
-/* Additional styles for dropdown, disabled links, etc., if needed */
+.list {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 55px;
+}
+
+.link {
+    color: black;
+    width: 20vw;
+    height: 5vh;
+    margin-bottom: 0;
+    background-color: white;
+    border: 1px solid black;
+}
 </style>
