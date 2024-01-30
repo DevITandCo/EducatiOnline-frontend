@@ -1,7 +1,10 @@
-
 <template>
     <div class="deficiency">
       <h1>titre</h1>
+      <li class="nav-item">
+        <!--<router-link class="nav-link" to="/delete?id={article.id}">Supprimer l'article<span class="visually-hidden"></span></router-link>-->
+        <p><button v-on:click="deleteArticle()">Supprimer l'article</button></p> 
+      </li>
       <p>{{ article.title }}</p>
       <h3>Pathologies</h3>
       <p>{{ article.pathology }}</p>
@@ -77,6 +80,15 @@
           console.log(this.$data.article.title)
           console.log(this.$data.article.pathologie)
           console.log(this.$data.article.symptoms)
+        },
+        deleteArticle(){
+          axiosClient.post('/article/delete', {"id": this.$data.article.id}
+                ).then(function (response) {
+                // TODO toast success
+                console.log(response)
+                }).catch(function (error) {
+                    console.log(error)
+                });
         }
       },
       beforeMount: function() {
@@ -125,5 +137,15 @@
       /* text-align: center; */
       /* width: 10vw; */
     }
+
+    .nav-item {
+      margin: 0 15px; /* Adjusted for a balanced look */
+    }
+
+    .nav-link {
+      color: #0375e3; /* Match the footer's text color */
+      transition: color 0.2s, text-decoration 0.2s;
+      text-decoration: none; 
+    }    
   </style>
     
