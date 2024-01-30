@@ -1,8 +1,9 @@
-    <div class="deficiency">
+    <template>
+      <div class="deficiency">
       <h1>{{article.title}}</h1>
       <li class="nav-item">
-        <!--<router-link class="nav-link" to="/delete?id={article.id}">Supprimer l'article<span class="visually-hidden"></span></router-link>-->
-        <p><button v-on:click="deleteArticle()">Supprimer l'article</button></p> 
+        <!-- For now it's disable to prevent missclicks -->
+        <p><button v-on:click="deleteArticle()" :disabled="true">Supprimer l'article</button></p> 
       </li>
       <h3>Pathologies</h3>
       <p>{{ article.pathology }}</p>
@@ -105,46 +106,19 @@
     h3 {
       margin: 40px 0 0;
     }
+
     ul {
       list-style-type: none;
       padding: 0;
     }
+
     li {
       display: inline-block;
       margin: 0 10px;
-    }
-    a {
-      color: #42b983;
-    }
-  
-    .txt_field {
-      width: 60vw;
-      /* border: none; */
-      /* outline: none; */
-      resize: none;
-      /* overflow: hidden; */
-      /* min-height: 50px;
-      max-height: 20vh; */
-    }
-  
-    .txt_titre {
-      text-align: center;
-      /* width: 10vw; */
-    }
-  
-    .txt_pathologie {
-      /* text-align: center; */
-      /* width: 10vw; */
     }
 
     .nav-item {
       margin: 0 15px; /* Adjusted for a balanced look */
     }
-
-    .nav-link {
-      color: #0375e3; /* Match the footer's text color */
-      transition: color 0.2s, text-decoration 0.2s;
-      text-decoration: none; 
-    }    
   </style>
     

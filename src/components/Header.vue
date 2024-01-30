@@ -6,7 +6,6 @@
         </router-link>
         <form @submit.prevent="searchDeficiency" class="search-form">
             <input class="form-control" type="search" placeholder="Search" aria-label="Search" v-model="input" v-on:click="clearSearch">
-            <button class="search-button" type="submit">Search</button>
             <div class="list">
                 <router-link
                     v-for="(element) in filteredList()"
@@ -162,24 +161,7 @@ function logout() {
     color: #ffffff; /* White text color for the input */
 }
 
-.search-button {
-    padding: 5px 15px;
-    background-color: #6c757d; /* Darker background for the button */
-    border: none; /* Remove default border */
-    color: #ffffff; /* White text color for the button */
-    cursor: pointer; /* Pointer cursor on hover */
-}
 
-.search-button:hover {
-    background-color: #5a6268; /* A slightly lighter shade for hover */
-}
-
-.list {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    top: 55px;
-}
 
 .link {
     color: black;
