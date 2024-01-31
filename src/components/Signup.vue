@@ -47,7 +47,8 @@ export default {
         submitForm() {
             if (this.checkPasswordLength(this.password)) {
                 axiosClient.post('auth/sign-up', {
-                    username: this.lastName,
+                    firstName: this.firstName,
+                    lastName: this.lastName,
                     email: this.email,
                     password: this.password
                 }).then(response => {

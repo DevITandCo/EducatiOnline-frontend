@@ -1,0 +1,106 @@
+<template>
+    <div class="admin">
+        <h1>Plateforme d'administration</h1>
+
+        <p><a href="/edit?id=">Créer un article</a></p>
+
+        <p>Gestion du rang des comptes</p>
+
+        <table class="mgt">
+            <tr>
+                <th>Mail</th>
+                <td>firstName</td>
+                <td>lastName</td>
+                <td colspan="2">options</td>
+            </tr>
+            <tr v-for="(user,i) in filterUsers()"
+                :key="i"
+                :to=getUsers().length>
+            <th>{{ user.email  }}</th>
+            <td>{{ user.firstName  }}</td>
+            <td>{{ user.lastName  }}</td>
+            <td><button v-on:click="changeRank(user._id, 1 - parseInt(user.rank))">set rank to {{ 1 - parseInt(user.rank) }}</button></td>
+            <td><button v-on:click="deleteUser(user._id)">delete</button></td>
+            </tr>
+        </table>
+
+    </div>
+  </template>
+  
+<script>
+import { axiosClient } from '@/apiClient';
+import { toast } from 'vue3-toastify';
+
+export default {
+    name: 'AdminPage',
+    data() {
+      return {
+        users: ''
+      }
+    },
+    methods: {
+        init() {
+          let data = this.$data
+            axiosClient.get('/auth/getAll',
+                ).then(function (response) {
+                    data.users = response.data.data.users
+                }).catch(function (error) {
+                    console.log(error);
+                });
+        },
+        getUsers() {
+            return this.$data.users
+        },
+        filterUsers() {
+            return this.$data.users
+        },
+        changeRank(id, rank) {
+            axiosClient.post('/auth/setRank', 
+            {id: id, rank: rank}
+                ).then(function (response) {
+                    console.log(response)
+                    toast.success('Modification réussie !');
+                }).catch(function (error) {
+                    console.log(error);
+                    toast.error('Erreur lors de la modification.');
+                });
+        },
+        deleteUser(id) {
+            axiosClient.post('/auth/delete', 
+            {id: id}
+            ).then(function (response) {
+                console.log(response)
+                toast.success('Suppression réussie !');
+                }).catch(function (error) {
+                    console.log(error);
+                    toast.error('Erreur lors de la suppression.');
+                });
+        }
+      },
+      beforeMount: function() {
+        // use is when page changes
+        this.init()
+      },
+      updated: function() {
+        // use it when only parameter changes
+        this.init()
+      },
+}
+</script>
+  
+  <!-- Add "scoped" attribute to limit CSS to this component only -->
+  <style scoped>
+  h3 {
+    margin: 40px 0 0;
+  }
+
+  a {
+    color: #42b983;
+  }
+
+  .admin {
+    display: flex;
+    flex-direction: column;
+  }
+  </style>
+  

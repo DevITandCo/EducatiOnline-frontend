@@ -1,10 +1,8 @@
     <template>
       <div class="deficiency">
-      <h1>{{article.title}}</h1>
-      <li class="nav-item">
-        <!-- For now it's disable to prevent missclicks -->
-        <p><button v-on:click="deleteArticle()" :disabled="true">Supprimer l'article</button></p> 
-      </li>
+      <a v-if="isAdmin()" id="edit">Edit article</a>
+      <!-- button -->
+      <h1>{{ article.title }}</h1>
       <h3>Pathologies</h3>
       <p>{{ article.pathology }}</p>
       <h3>Symptomes</h3>
@@ -22,20 +20,11 @@
     
   <script>
   import { axiosClient } from '@/apiClient';
-
+// import store from '@/store';
+  // import { mapState } from 'vuex'
   
   export default {
     name: 'EditDeficiencyFormPage',
-    props: {
-      id: String,
-      title: String,
-      pathology: String,
-      symptoms: String,
-      contributions: String,
-      procedures: String,
-      additional: String,
-      related: String
-    },
     data() {
       return {
         mode: 'r',
@@ -55,9 +44,10 @@
         init() {
           var url = new URL(window.location)
           var id = url.searchParams.get('id')
+          const methods = this
           const article = this.$data.article
           if (id != null) {
-            axiosClient.get('http://localhost:3000/v1/article/get', {params :{"id": id}}
+            axiosClient.get('/article/get', {params :{"id": id}}
                 ).then(function (response) {
                   let foundArticle = response.data.data.existingArticle
                   article.id = foundArticle._id
@@ -69,26 +59,22 @@
                   article.additional = foundArticle.additional
                   article.related = foundArticle.related
 
+                  if (methods.isAdmin()) {
+                    let obj = document.getElementById('edit')
+                    obj.setAttribute('href', "/edit?id=" + article.id)
+                  }
                 }).catch(function (error) {
                     console.log(error);
                 });
           }
         },
-        update() {
-          console.log('submit')
-          console.log(this.$data.article.id)
-          console.log(this.$data.article.title)
-          console.log(this.$data.article.pathologie)
-          console.log(this.$data.article.symptoms)
-        },
-        deleteArticle(){
-          axiosClient.post('/article/delete', {"id": this.$data.article.id}
-                ).then(function (response) {
-                // TODO toast success
-                console.log(response)
-                }).catch(function (error) {
-                    console.log(error)
-                });
+        isAdmin() {
+          //  TODO check rank value
+          // get user rank from token
+          // or get request with user id
+          // axiosClient.get('/auth/rank?id=', {params: {id: user.id}} {
+          // })
+          return true
         }
       },
       beforeMount: function() {

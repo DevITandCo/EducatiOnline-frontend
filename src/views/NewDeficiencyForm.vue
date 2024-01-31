@@ -1,59 +1,72 @@
 
 <template>
     <div class="deficiency">
+      <a id="back">Back to article</a>
       <form @submit.prevent="submitForm">
         <h1>titre</h1>
         <textarea
+          contentEditable="true"
           class="txt_field txt_title"
           id="txt_title"
+
           v-model="article.title"
         >
         </textarea>
         <h3>Pathologie</h3>
-        <!-- <p>{{ article.pathology }}</p> -->
         <textarea
+          contentEditable="true"
           class="txt_field txt_pathology"
-          id="txt_pathology"
           v-model="article.pathology"
+          
         >
         </textarea>
         <h3>Symptomes</h3>
         <textarea
+          contentEditable="true"
           class="txt_field"
           v-model="article.symptoms"
         ></textarea>
         <h3>Contributions</h3>
         <textarea
+          contentEditable="true"
           class="txt_field"
           v-model="article.contributions"
         ></textarea>
         <h3>Procédures</h3>
         <textarea
+          contentEditable="true"
           class="txt_field"
           v-model="article.procedures"
         ></textarea>
           <h3>En savoir plus</h3>
           <textarea
+            contentEditable="true"
             class="txt_field"
             v-model="article.additional"
           ></textarea>
           <h3>Fiches liées</h3>
           <textarea
+            contentEditable="true"
             class="txt_field"
             v-model="article.related"
           ></textarea>
-          <p><button v-on:click="update()">Update</button></p>
+
+          <div class="cud_articles">
+            <h4><button v-if="!isArticle()" v-on:click="createArticle()">Create</button>
+            <button v-if="isArticle()" v-on:click="updateArticle()">Update</button>
+            <button v-if="isArticle()" v-on:click="deleteArticle()">Delete</button></h4>
+          </div>
         </form>
       </div>
   </template>
     
   <script>
   import { axiosClient } from '@/apiClient';
-  
+  import { toast } from 'vue3-toastify';
+
   export default {
     name: 'EditDeficiencyFormPage',
     props: {
-      id: String,
       title: String,
       pathology: String,
       symptoms: String,
@@ -81,38 +94,93 @@
         init() {
           var url = new URL(window.location)
           var id = url.searchParams.get('id')
-          const article = this.$data.article
-          if (id != null) {
-            axiosClient.get('http://localhost:3000/v1/article/get', {params :{"id": id}}
-                ).then(function (response) {
-                  let foundArticle = response.data.data.existingArticle
-                  article.id = foundArticle._id
-                  article.title = foundArticle.title
-                  article.pathology = foundArticle.pathology
-                  article.symptoms = foundArticle.symptoms
-                  article.contributions = foundArticle.contributions
-                  article.procedures = foundArticle.procedures
-                  article.additional = foundArticle.additional
-                  article.related = foundArticle.related
-                }).catch(function (error) {
-                    console.log(error);
-                });
+          const data = this.$data.article
+          const methods = this
+          if (id != null && id != "") {
+            axiosClient.get('/article/get', {params :{"id": id}}
+            ).then(function (response) {
+              let foundArticle = response.data.data.existingArticle
+              
+              data.id = foundArticle._id
+              data.title = foundArticle.title
+              data.pathology = foundArticle.pathology
+              data.symptoms = foundArticle.symptoms
+              data.contributions = foundArticle.contributions
+              data.procedures = foundArticle.procedures
+              data.additional = foundArticle.additional
+              data.related = foundArticle.related
+
+              if (methods.isArticle()) {
+                let obj = document.getElementById('back')
+                obj.setAttribute('href', "/formulaire?id=" + data.id)
+              }
+              }).catch(function (error) {
+              console.log(error);
+            });
           }
         },
-        update() {
-          console.log('submit')
-          console.log(this.$data.article.id)
-          console.log(this.$data.article.l)
-          console.log(this.$data.article.pathology)
-          console.log(this.$data.article.symptomes)
+        createArticle() {
+          const data = this.$data.article
+          axiosClient.post('/article/create', 
+            {
+              title: data.title,
+              pathology: data.pathology,
+              symptoms: data.symptoms,
+              contributions: data.contributions,
+              procedures: data.procedures,
+              additional: data.additional,
+              related: data.related
+            }
+            
+            ).then(function (response) {
+              console.log(response);
+              toast.success('Création réussie !');
+        }).catch(function (error) {
+            console.log(error);
+            toast.error('Erreur lors de la création.');
+        });
+        },
+        updateArticle() {
+          let data = this.$data.article
+          axiosClient.post('/article/update', 
+            {
+              id: data.id,
+              title: data.title,
+              pathology: data.pathology,
+              symptoms: data.symptoms,
+              contributions: data.contributions,
+              procedures: data.procedures,
+              additional: data.additional,
+              related: data.related
+            }
+            
+            ).then(function (response) {
+              toast.success('Modification réussie !');
+              console.log(response);
+            }).catch(function (error) {
+              console.log(error);
+              toast.error('Erreur lors de la modification.');
+            });
+        },
+        deleteArticle(){
+          const data = this.$data.article
+          axiosClient.post('/article/delete', {"id": data.id}
+                ).then(function (response) {
+                  console.log(response)
+                  toast.success('Suppression réussie !');
+                }).catch(function (error) {
+                    console.log(error)
+                    toast.error('Erreur lors de la suppresion.');
+                });
+        },
+        isArticle() {
+          let id = this.$data.article.id
+          if (id == null) return false
+          if (id == '') return false
+          return true
         }
       },
       beforeMount: function() {
-        // use is when page changes
-        this.init()
-      },
-      updated: function() {
-        // use it when only parameter changes
         this.init()
       },
   }
@@ -138,7 +206,7 @@
       width: 60vw;
       /* border: none; */
       /* outline: none; */
-      resize: none;
+      /* resize: none; */
       /* overflow: hidden; */
       /* min-height: 50px;
       max-height: 20vh; */
@@ -149,9 +217,15 @@
       /* width: 10vw; */
     }
   
-    .txt_pathology {
-      /* text-align: center; */
-      /* width: 10vw; */
+    .cud_articles {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: row;
+      margin: 20px;
+    }
+    .cud_articles a {
+      flex: auto;
     }
   </style>
     
