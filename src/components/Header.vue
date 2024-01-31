@@ -161,8 +161,6 @@ function logout() {
     color: #ffffff; /* White text color for the input */
 }
 
-
-
 .link {
     color: black;
     width: 20vw;
@@ -170,5 +168,12 @@ function logout() {
     margin-bottom: 0;
     background-color: white;
     border: 1px solid black;
+}
+
+.list {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 55px;
 }
 </style>

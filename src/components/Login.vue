@@ -11,7 +11,7 @@
                 <input :type="showPassword ? 'text' : 'password'" class="form-control form-control-lg" v-model="password"/>
                 <input type="checkbox" @click="showPassword = !showPassword"> Afficher mot de passe
             </div>
-            <button v-on:click="login()" type="submit" class="btn btn-dark btn-lg btn-block">Se connecter</button>
+            <button class="btn btn-dark btn-lg btn-block">Se connecter</button>
             <p class="forgot-password text-right mt-2 mb-4">
                 <router-link to="/reinitialisation">Mot de passe oublié ?</router-link>
             </p>
