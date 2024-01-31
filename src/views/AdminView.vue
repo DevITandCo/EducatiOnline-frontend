@@ -1,27 +1,29 @@
 <template>
-    <div class="acceuil">
+    <div class="admin">
         <h1>Plateforme d'administration</h1>
 
         <p><a href="/formulaire?id=">Créer un article</a></p>
 
         <p>Gestion du rang des comptes</p>
 
-        <tr>
-            <th>Mail</th>
-            <td>firstName</td>
-            <td>lastName</td>
-            <td>rank</td>
-            <td>delete</td>
-        </tr>
-        <tr v-for="(user,i) in filterUsers()"
-        :key="i"
-        :to=getUsers().length>
-       <th scope="row">{{ user.email  }}</th>
-       <td>{{ user.firstName  }}</td>
-       <td>{{ user.lastName  }}</td>
-       <td><button v-on:click="changeRank(user._id, user.rank)">set rank to {{ 1 - parseInt(user.rank) }}</button></td>
-       <td><button v-on:click="deleteUser(user._id)">delete</button></td>
-       </tr>
+        <table class="mgt">
+            <tr>
+                <th>Mail</th>
+                <td>firstName</td>
+                <td>lastName</td>
+                <td colspan="2">options</td>
+            </tr>
+            <tr v-for="(user,i) in filterUsers()"
+                :key="i"
+                :to=getUsers().length>
+            <th>{{ user.email  }}</th>
+            <td>{{ user.firstName  }}</td>
+            <td>{{ user.lastName  }}</td>
+            <td><button v-on:click="changeRank(user._id, user.rank)">set rank to {{ 1 - parseInt(user.rank) }}</button></td>
+            <td><button v-on:click="deleteUser(user._id)">delete</button></td>
+            </tr>
+        </table>
+
     </div>
   </template>
   
@@ -91,16 +93,14 @@ export default {
   h3 {
     margin: 40px 0 0;
   }
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  li {
-    display: inline-block;
-    margin: 0 10px;
-  }
+
   a {
     color: #42b983;
+  }
+
+  .admin {
+    display: flex;
+    flex-direction: column;
   }
   </style>
   
