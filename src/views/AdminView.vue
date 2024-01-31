@@ -19,10 +19,9 @@
        <th scope="row">{{ user.email  }}</th>
        <td>{{ user.firstName  }}</td>
        <td>{{ user.lastName  }}</td>
-       <td><button v-on:click="changeRank(user._id, user,rank)">set rank to {{ 1 - parseInt(user.rank) }}</button></td>
+       <td><button v-on:click="changeRank(user._id, user.rank)">set rank to {{ 1 - parseInt(user.rank) }}</button></td>
        <td><button v-on:click="deleteUser(user._id)">delete</button></td>
        </tr>
-       <!-- <button v-on:click="getUsers()">clickme</button> -->
     </div>
   </template>
   
@@ -39,29 +38,23 @@ export default {
     },
     methods: {
         init() {
-        //   const methods = this
           let data = this.$data
-        //   if (id != null) {
             axiosClient.get('/auth/getAll',
                 ).then(function (response) {
                     data.users = response.data.data.users
                 }).catch(function (error) {
                     console.log(error);
                 });
-        //   }
         },
         getUsers() {
-            // console.log(this.$data)
             return this.$data.users
         },
         filterUsers() {
-            // console.log(this.$data)
             return this.$data.users
         },
         changeRank(id, rank) {
-            console.log(id, '-', rank)
             axiosClient.post('/auth/setRank', 
-            {id: id, rank: 0}
+            {id: id, rank: rank}
                 ).then(function (response) {
                     console.log(response)
                     toast.success('Création réussie !');
@@ -88,7 +81,7 @@ export default {
       },
       updated: function() {
         // use it when only parameter changes
-        // this.init()
+        this.init()
       },
 }
 </script>
