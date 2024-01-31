@@ -2,7 +2,7 @@
     <div class="admin">
         <h1>Plateforme d'administration</h1>
 
-        <p><a href="/formulaire?id=">Créer un article</a></p>
+        <p><a href="/edit?id=">Créer un article</a></p>
 
         <p>Gestion du rang des comptes</p>
 
@@ -59,10 +59,10 @@ export default {
             {id: id, rank: rank}
                 ).then(function (response) {
                     console.log(response)
-                    toast.success('Création réussie !');
+                    toast.success('Modification réussie !');
                 }).catch(function (error) {
                     console.log(error);
-                    toast.error('Erreur lors de la création.');
+                    toast.error('Erreur lors de la modification.');
                 });
         },
         deleteUser(id) {
@@ -70,10 +70,10 @@ export default {
             {id: id}
             ).then(function (response) {
                 console.log(response)
-                toast.success('Création réussie !');
+                toast.success('Suppression réussie !');
                 }).catch(function (error) {
                     console.log(error);
-                    toast.error('Erreur lors de la création.');
+                    toast.error('Erreur lors de la suppression.');
                 });
         }
       },
