@@ -6,7 +6,7 @@
         </div>
         <div class="footer-content">
             <li class="footer-item">
-                <router-link class="nav-link" to="">Nous contacter <span class="visually-hidden"></span></router-link>
+                <router-link class="nav-link" to="/contact">Nous contacter <span class="visually-hidden"></span></router-link>
             </li>
             <li class="footer-item">
                 <router-link class="nav-link" to="/faq">FAQ<span class="visually-hidden"></span></router-link>
