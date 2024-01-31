@@ -6,9 +6,9 @@
 
         <table class="mgt">
             <tr>
-                <th>Author's mail</th>
-                <td>Category</td>
-                <td>Content</td>
+                <th>Courriel de l'auteur</th>
+                <td>Catégorie</td>
+                <td>Contenu</td>
                 <td colspan="2">Options</td>
             </tr>
             <tr v-for="(form,i) in getForm()"
@@ -17,7 +17,7 @@
             <th>{{ form.author }}</th>
             <td>{{ form.category }}</td>
             <td>{{ form.content }}</td>
-            <td><button v-on:click="deleteForm(form._id)">delete</button></td> 
+            <td><button v-on:click="deleteForm(form._id)">Supprimer</button></td> 
             </tr>
         </table>
 
@@ -59,7 +59,18 @@ export default {
                     console.log(error);
                     toast.error('Erreur lors de la suppression.');
                 });
-        }
+        },
+        // changeRank(id, rank) {
+        //     axiosClient.post('/auth/setRank', 
+        //     {id: id, rank: rank}
+        //         ).then(function (response) {
+        //             console.log(response)
+        //             toast.success('Création réussie !');
+        //         }).catch(function (error) {
+        //             console.log(error);
+        //             toast.error('Erreur lors de la création.');
+        //         });
+        // }
       },
       beforeMount: function() {
         // use is when page changes
