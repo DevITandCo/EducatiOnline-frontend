@@ -52,18 +52,18 @@
           ></textarea>
 
           <div class="cud_articles">
-            <h4><button v-on:click="createArticle()">Create</button>
-            <button v-on:click="updateArticle()">Update</button>
-            <button v-on:click="deleteArticle()">Delete</button></h4>
+            <h4><button v-if="!isArticle()" v-on:click="createArticle()">Create</button>
+            <button v-if="isArticle()" v-on:click="updateArticle()">Update</button>
+            <button v-if="isArticle()" v-on:click="deleteArticle()">Delete</button></h4>
           </div>
         </form>
       </div>
   </template>
     
   <script>
-
   import { axiosClient } from '@/apiClient';
-  
+  import { toast } from 'vue3-toastify';
+
   export default {
     name: 'EditDeficiencyFormPage',
     props: {
@@ -95,10 +95,12 @@
           var url = new URL(window.location)
           var id = url.searchParams.get('id')
           const data = this.$data.article
-          if (id != null) {
+          const methods = this
+          if (id != null && id != "") {
             axiosClient.get('/article/get', {params :{"id": id}}
             ).then(function (response) {
               let foundArticle = response.data.data.existingArticle
+              
               data.id = foundArticle._id
               data.title = foundArticle.title
               data.pathology = foundArticle.pathology
@@ -107,9 +109,12 @@
               data.procedures = foundArticle.procedures
               data.additional = foundArticle.additional
               data.related = foundArticle.related
-              let obj = document.getElementById('back')
-              obj.setAttribute('href', "/formulaire?id=" + data.id)
-            }).catch(function (error) {
+
+              if (methods.isArticle()) {
+                let obj = document.getElementById('back')
+                obj.setAttribute('href', "/formulaire?id=" + data.id)
+              }
+              }).catch(function (error) {
               console.log(error);
             });
           }
@@ -129,8 +134,10 @@
             
             ).then(function (response) {
               console.log(response);
+              toast.success('Création réussie !');
         }).catch(function (error) {
             console.log(error);
+            toast.error('Erreur lors de la création.');
         });
         },
         updateArticle() {
@@ -148,20 +155,29 @@
             }
             
             ).then(function (response) {
+              toast.success('Modification réussie !');
               console.log(response);
-        }).catch(function (error) {
-            console.log(error);
-        });
+            }).catch(function (error) {
+              console.log(error);
+              toast.error('Erreur lors de la modification.');
+            });
         },
         deleteArticle(){
           const data = this.$data.article
-          axiosClient.post('/article/delete', {"id": data.article.id}
+          axiosClient.post('/article/delete', {"id": data.id}
                 ).then(function (response) {
-                // TODO toast success
-                console.log(response)
+                  console.log(response)
+                  toast.success('Suppression réussie !');
                 }).catch(function (error) {
                     console.log(error)
+                    toast.error('Erreur lors de la suppresion.');
                 });
+        },
+        isArticle() {
+          let id = this.$data.article.id
+          if (id == null) return false
+          if (id == '') return false
+          return true
         }
       },
       beforeMount: function() {
@@ -190,7 +206,7 @@
       width: 60vw;
       /* border: none; */
       /* outline: none; */
-      resize: none;
+      /* resize: none; */
       /* overflow: hidden; */
       /* min-height: 50px;
       max-height: 20vh; */
