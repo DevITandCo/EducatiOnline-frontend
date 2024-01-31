@@ -10,7 +10,7 @@ import ForgotPasswordPage from '@/components/Forgotpassword.vue'
 import NotFound from '@/views/Notfound.vue'
 import FaqPage from '@/components/Faq.vue'
 import ContactManagementPage from '@/views/ContactManagement.vue'
-
+import ContactPage from '@/views/ContactPage.vue'
 
 const routes = [
   { path: '/', name:'Acceuil',component: AcceuilPage},
@@ -18,6 +18,7 @@ const routes = [
   { path: '/edit', name:'Edit', component: NewDeficiencyFormPage },
   { path: '/admin', name:'Admin', component: AdminPage },
   { path: '/contactmanagement', name:'ContactManagement', component: ContactManagementPage },
+  { path: '/contact', name:'Contact', component: ContactPage },
   { path: '/connection', component: LoginPage },
   { path: '/inscription', component: SignupPage },
   { path: '/reinitialisation', component: ForgotPasswordPage },
