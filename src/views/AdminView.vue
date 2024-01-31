@@ -1,29 +1,28 @@
 <template>
     <div class="admin">
         <h1>Plateforme d'administration</h1>
-
         <p><a href="/edit?id=">Créer un article</a></p>
-
-        <p>Gestion du rang des comptes</p>
-
+        <p><a href="/contactmanagement">Gestion des formulaires de contact</a></p>
+        <p>Gestion des comptes</p>
         <table class="mgt">
             <tr>
-                <th>Mail</th>
-                <td>firstName</td>
-                <td>lastName</td>
-                <td colspan="2">options</td>
+                <th>Courriel</th>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>Actions</th>
             </tr>
-            <tr v-for="(user,i) in filterUsers()"
-                :key="i"
-                :to=getUsers().length>
-            <th>{{ user.email  }}</th>
+            <tr v-for="(user) in filterUsers()"
+                :key="user">
+            <td>{{ user.email  }}</td>
             <td>{{ user.firstName  }}</td>
             <td>{{ user.lastName  }}</td>
-            <td><button v-on:click="changeRank(user._id, 1 - parseInt(user.rank))">set rank to {{ 1 - parseInt(user.rank) }}</button></td>
-            <td><button v-on:click="deleteUser(user._id)">delete</button></td>
+            <td>
+              <button v-on:click="deleteUser(user._id)"><img alt="Logo delete" src="@/assets/logo-delete.png"/></button>
+              <button v-if="user.rank == 0" v-on:click="changeRank(user._id, 1 - parseInt(user.rank))"><img alt="Logo non admin" src="@/assets/logo-non-admin.png"/></button>
+              <button v-if="user.rank == 1" v-on:click="changeRank(user._id, 1 - parseInt(user.rank))"><img alt="Logo admin" src="@/assets/logo-admin.png"/></button>
+            </td>
             </tr>
         </table>
-
     </div>
   </template>
   
@@ -35,7 +34,8 @@ export default {
     name: 'AdminPage',
     data() {
       return {
-        users: ''
+        users: '',
+        publicPath: process.env.BASE_URL
       }
     },
     methods: {
@@ -47,9 +47,6 @@ export default {
                 }).catch(function (error) {
                     console.log(error);
                 });
-        },
-        getUsers() {
-            return this.$data.users
         },
         filterUsers() {
             return this.$data.users
@@ -101,6 +98,18 @@ export default {
   .admin {
     display: flex;
     flex-direction: column;
+  }
+
+  .admin th {
+    background-color: #DBDBDB;
+  }
+  .admin th, .admin td {
+    border: 1px solid #BDBDBD;
+  }
+
+  .admin td img {
+    width: 25px;
+    height: 25px;
   }
   </style>
   
