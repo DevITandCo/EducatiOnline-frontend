@@ -19,7 +19,7 @@
             <th>{{ user.email  }}</th>
             <td>{{ user.firstName  }}</td>
             <td>{{ user.lastName  }}</td>
-            <td><button v-on:click="changeRank(user._id, user.rank)">set rank to {{ 1 - parseInt(user.rank) }}</button></td>
+            <td><button v-on:click="changeRank(user._id, 1 - parseInt(user.rank))">set rank to {{ 1 - parseInt(user.rank) }}</button></td>
             <td><button v-on:click="deleteUser(user._id)">delete</button></td>
             </tr>
         </table>
