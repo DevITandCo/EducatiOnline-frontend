@@ -34,7 +34,7 @@
         </textarea>
 
           <div class="cud_articles">
-            <h4><button v-on:click="createForm()">Create</button></h4>
+            <h4><button v-on:click="createForm()">Créer</button></h4>
           </div>
         </form>
       </div>

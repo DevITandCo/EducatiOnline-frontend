@@ -17,7 +17,7 @@
             <th>{{ form.author }}</th>
             <td>{{ form.category }}</td>
             <td>{{ form.content }}</td>
-            <td><button v-on:click="deleteForm(form._id)">delete</button></td> 
+            <td><button v-on:click="deleteForm(form._id)">Supprimer</button></td> 
             </tr>
         </table>
 
