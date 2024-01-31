@@ -10,6 +10,7 @@ import ForgotPasswordPage from '@/components/Forgotpassword.vue'
 import NotFound from '@/views/Notfound.vue'
 import FaqPage from '@/components/Faq.vue'
 import ContactManagementPage from '@/views/ContactManagement.vue'
+import EditDeficiencyFormPage from '@/views/NewDeficiencyForm.vue'
 
 
 const routes = [
@@ -22,6 +23,7 @@ const routes = [
   { path: '/inscription', component: SignupPage },
   { path: '/reinitialisation', component: ForgotPasswordPage },
   { path: '/faq', name:'FAQ', component: FaqPage },
+  { path: '/edit', component: EditDeficiencyFormPage},
   { path: '/:catchAll(.*)', name:'404Name', component: NotFound}
 ]
 

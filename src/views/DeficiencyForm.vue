@@ -1,6 +1,6 @@
     <template>
       <div class="deficiency">
-      <a v-if="isAdmin()" id="edit">Edit article</a>
+        <router-link v-if="isAdmin()" :to="'/edit?id=' + article.id" id="edit">Modifier l'article</router-link>
       <!-- button -->
       <h1>{{ article.title }}</h1>
       <h3>Pathologies</h3>
@@ -20,8 +20,6 @@
     
   <script>
   import { axiosClient } from '@/apiClient';
-// import store from '@/store';
-  // import { mapState } from 'vuex'
   
   export default {
     name: 'EditDeficiencyFormPage',

@@ -38,10 +38,10 @@ export default {
                 email: this.email,
                 password: this.password
             }).then(response => {
-                console.log(response);
                 toast.success('Connexion réussie !');
                 this.$store.commit('setLoggedIn'); // Set isLoggedIn to true
-                this.$router.push('/'); // Redirection to path "/"
+                this.$store.commit('setToken', response.data.data.token);
+                this.$router.push('/'); // Redirection to path "/" which is the index page
             }).catch(error => {
                 console.log(error);
                 toast.error('E-mail ou mot de passe incorrect.');

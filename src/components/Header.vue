@@ -5,7 +5,7 @@
             <img alt="Logo Edu" src="@/assets/logo-edu.png">
         </router-link>
         <form @submit.prevent="searchDeficiency" class="search-form">
-            <input class="form-control" type="search" placeholder="Search" aria-label="Search" v-model="input" v-on:click="clearSearch">
+            <input class="form-control" type="search" placeholder="Search" aria-label="Search" v-model="input" v-on:click="clearSearch" v-if="isLoggedIn">
             <div class="list">
                 <router-link
                     v-for="(element) in filteredList()"

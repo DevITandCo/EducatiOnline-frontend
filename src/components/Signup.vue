@@ -53,11 +53,11 @@ export default {
                     password: this.password
                 }).then(response => {
                     console.log(response);
-                    toast.success('success', 'Compte créé avec succès!');
+                    toast.success('Compte créé avec succès!');
                     this.resetForm();
                 }).catch(error => {
                     console.log(error);
-                    toast.error('error', 'Une erreur s\'est produite lors de la création du compte.');
+                    toast.error('Une erreur s\'est produite lors de la création du compte.');
                 });
             } else {
                 toast.error("Le mot de passe doit contenir plus de 8 caractères");

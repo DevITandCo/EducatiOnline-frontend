@@ -1,7 +1,7 @@
 
 <template>
     <div class="deficiency">
-      <a id="back">Back to article</a>
+      <router-link :to="'/formulaire?id=' + article.id" id="back">Retournez à l'article</router-link>
       <form @submit.prevent="submitForm">
         <h1>titre</h1>
         <textarea
@@ -198,23 +198,13 @@
       display: inline-block;
       margin: 0 10px;
     }
-    a {
-      color: #42b983;
-    }
   
     .txt_field {
       width: 60vw;
-      /* border: none; */
-      /* outline: none; */
-      /* resize: none; */
-      /* overflow: hidden; */
-      /* min-height: 50px;
-      max-height: 20vh; */
     }
   
     .txt_title {
       text-align: center;
-      /* width: 10vw; */
     }
   
     .cud_articles {
