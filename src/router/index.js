@@ -9,6 +9,7 @@ import SignupPage from '@/components/Signup.vue'
 import ForgotPasswordPage from '@/components/Forgotpassword.vue'
 import NotFound from '@/views/Notfound.vue'
 import FaqPage from '@/components/Faq.vue'
+import ContactManagementPage from '@/views/ContactManagement.vue'
 
 
 const routes = [
@@ -16,6 +17,7 @@ const routes = [
   { path: '/formulaire', name:'Fiche', component: DeficiencyFormPage },
   { path: '/edit', name:'Edit', component: NewDeficiencyFormPage },
   { path: '/admin', name:'Admin', component: AdminPage },
+  { path: '/contactmanagement', name:'ContactManagement', component: ContactManagementPage },
   { path: '/connection', component: LoginPage },
   { path: '/inscription', component: SignupPage },
   { path: '/reinitialisation', component: ForgotPasswordPage },
