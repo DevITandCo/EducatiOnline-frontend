@@ -58,9 +58,9 @@
           ></textarea>
 
           <div class="cud_articles">
-            <h4><button v-if="!isArticle()" v-on:click="createArticle()">Create</button>
-            <button v-if="isArticle()" v-on:click="updateArticle()">Update</button>
-            <button v-if="isArticle()" v-on:click="deleteArticle()">Delete</button></h4>
+            <button class="btn btn-primary btn-lg btn-block" v-if="!isArticle()" v-on:click="createArticle()">Créer</button>
+            <button class="btn btn-success btn-lg btn-block" v-if="isArticle()" v-on:click="updateArticle()">Modifier</button>
+            <button class="btn btn-danger btn-lg btn-block" v-if="isArticle()" v-on:click="deleteArticle()">Supprimer</button>
           </div>
         </form>
       </div>
@@ -220,8 +220,9 @@
       flex-direction: row;
       margin: 20px;
     }
-    .cud_articles a {
-      flex: auto;
+    .cud_articles button {
+      /* flex: auto; */
+      margin: 10px;
     }
   </style>
     
