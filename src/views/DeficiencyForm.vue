@@ -12,9 +12,12 @@
       <h3>Procédures</h3>
       <p>{{ article.procedures }}</p>
       <h3>En savoir plus</h3>
-      <p>{{ article.additional }}</p>
+      <p v-for="(links) in getAdditionalLinks()" :key="links.name">
+        <a target="_blank" :href='"//" + links.url'>{{ links.name }}</a></p>
       <h3>Fiches liées</h3>
-      <p>{{ article.related }}</p>
+      <p v-for="(links) in getRelatedLinks()" :key="links.name">
+        <router-link :to='links.url'>{{ links.name }}
+        </router-link></p>
     </div>
   </template>
     
@@ -73,6 +76,35 @@
           // axiosClient.get('/auth/rank?id=', {params: {id: user.id}} {
           // })
           return true
+        },
+        getAdditionalLinks() {
+          let related = this.$data.article.additional
+          let links = related.split('\n')
+          let results = []
+          if (links.length > 1) {
+            for (let i=0; i<links.length; i++) {
+              let line = links[i].split('|')
+              let name = line[0]
+              let url = line[1]
+              results.push({name: name, url:url})
+            }
+          }
+          return results
+        },
+        getRelatedLinks() {
+          let related = this.$data.article.related
+          let links = related.split('\n')
+          let results = []
+          if (links.length > 1) {
+            for (let i=0; i<links.length; i++) {
+              let line = links[i].split('|')
+              let name = line[0]
+              let form_id = line[1].split(['id='])[1]
+              let url = "/formulaire?id=" + form_id
+              results.push({name: name, url:url})
+            }
+          }
+          return results
         }
       },
       beforeMount: function() {

@@ -38,6 +38,12 @@
           class="txt_field"
           v-model="article.procedures"
         ></textarea>
+
+        <p>Pour insérer un lien URL, veuillez rédiger ce dernier sous le format suivant:</p>
+        <p><b>syntaxe:</b>Nom|URL</p>
+        <p><b>exemple:</b>Education, formation et handicap - Ministere du 
+          travail de la santé et des solidarités|
+          https://handicap.gouv.fr/education-formation-et-handicap</p>
           <h3>En savoir plus</h3>
           <textarea
             contentEditable="true"
