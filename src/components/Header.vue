@@ -99,32 +99,27 @@ function redirect(){
 }
 
 function logout() {
-    // Update the isLoggedIn state
     store.commit('updateIsLoggedIn', false);
-
-    // Refresh the page
-    location.reload();
+    // location.reload();
 }
 </script>
 
 <style>
 .header {
-    background-color: #0375e3; /* Match the footer's background color */
-    color: #ffffff; /* Match the footer's text color */
-    padding: 10px 20px; /* Adjust padding to give more space */
+    background-color: #0375e3; 
+    color: #ffffff; 
+    padding: 10px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-size: 0.9em; /* Match the footer's font size */
+    font-size: 0.9em;
 }
 
 .header-brand img {
-    max-height: 50px; /* Adjusted for a balanced look */
-    width: auto;
-    height: auto;
+    max-height: 50px;
 }
 
-.header-nav {
+.header-nav, .list {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -133,18 +128,18 @@ function logout() {
 }
 
 .nav-item {
-    margin: 0 15px; /* Adjusted for a balanced look */
+    margin: 0 15px;
 }
 
 .nav-link {
-    color: #ffffff; /* Match the footer's text color */
+    color: #ffffff;
     transition: color 0.2s, text-decoration 0.2s;
     text-decoration: none; 
 }
 
 .nav-link:hover,
 .nav-item.active .nav-link {
-    color: #adb5bd; /* A lighter shade for hover and active states */
+    color: #adb5bd;
     text-decoration: underline;
 }
 
@@ -156,23 +151,21 @@ function logout() {
 .form-control {
     padding: 5px 10px;
     margin-right: 10px;
-    border: 1px solid #adb5bd; /* A border color that stands out less */
-    background-color: #495057; /* Darker background for the input */
-    color: #ffffff; /* White text color for the input */
+    border: 1px solid #adb5bd; 
+    background-color: #495057; 
+    color: #ffffff;
 }
 
 .link {
     color: black;
     width: 20vw;
     height: 5vh;
-    margin-bottom: 0;
     background-color: white;
     border: 1px solid black;
 }
 
 .list {
     position: absolute;
-    display: flex;
     flex-direction: column;
     top: 55px;
 }

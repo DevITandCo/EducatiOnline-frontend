@@ -1,7 +1,9 @@
 import { createStore } from 'vuex'
+import LocalStorage from './localstorage-plugin';
 
 
 export default createStore({
+  plugins: [LocalStorage],
   state: {
     toasts: [],
     isLoggedIn: false,
