@@ -41,6 +41,7 @@ export default {
                 toast.success('Connexion réussie !');
                 this.$store.commit('setLoggedIn'); // Set isLoggedIn to true
                 this.$store.commit('setToken', response.data.data.token);
+                this.$store.commit('setIsAdmin', response.data.data.rank);
                 this.$router.push('/'); // Redirection to path "/" which is the index page
             }).catch(error => {
                 console.log(error);

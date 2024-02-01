@@ -1,14 +1,17 @@
 import { createStore } from 'vuex'
 
+
 export default createStore({
   state: {
     toasts: [],
     isLoggedIn: false,
-    token: null
+    token: null,
+    isAdmin: 0
   },
   getters: {
     isLoggedIn: state => state.isLoggedIn,
-    token: state => state.token
+    token: state => state.token,
+    isAdmin: state => state.isAdmin
   },
   mutations: {
     setLoggedIn(state) {
@@ -23,6 +26,9 @@ export default createStore({
     },
     updateIsLoggedIn(state, isLoggedIn) {
       state.isLoggedIn = isLoggedIn;
+    },
+    setIsAdmin(state, value){
+      state.isAdmin = value;
     }
   },
   actions: {

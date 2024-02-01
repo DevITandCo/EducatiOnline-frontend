@@ -6,6 +6,9 @@
         </div>
         <div class="footer-content">
             <li class="footer-item">
+                <router-link class="nav-link" to="/admin" v-if="isAdmin==1">Plateforme d'administration<span class="visually-hidden"></span></router-link>
+            </li>
+            <li class="footer-item">
                 <router-link class="nav-link" to="/contact">Nous contacter <span class="visually-hidden"></span></router-link>
             </li>
             <li class="footer-item">
@@ -19,10 +22,12 @@
     </footer>
 </template>
 
-<script>
-export default {
-  name: 'Footer',
-}
+<script setup>
+import { computed } from "vue";
+import { useStore } from 'vuex';
+
+const store = useStore();
+const isAdmin = computed(() => store.state.isAdmin);
 </script>
 
 <style>
