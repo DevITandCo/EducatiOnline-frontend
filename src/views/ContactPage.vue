@@ -46,16 +46,6 @@
   import { toast } from 'vue3-toastify';
 
   export default {
-    name: 'EditDeficiencyFormPage',
-    props: {
-      title: String,
-      pathology: String,
-      symptoms: String,
-      contributions: String,
-      procedures: String,
-      additional: String,
-      related: String
-    },
     data() {
       return {
         form: {
