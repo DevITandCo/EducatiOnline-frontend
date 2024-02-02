@@ -4,15 +4,6 @@
       <form @submit.prevent="submitForm">
         <br/>
         <h1>Nouveau formulaire de contact</h1>
-        <h3>Categorie</h3>
-        <textarea
-          contentEditable="true"
-          class="txt_field txt_title"
-          id="txt_title"
-
-          v-model="form.category"
-        >
-        </textarea>
 
         <h3>E-mail</h3>
         <input type="email"
@@ -23,8 +14,18 @@
           v-model="form.author"
         >
 
+        <h3>Objet</h3>
+        <textarea v-on:change="resize()"
+          contentEditable="true"
+          class="txt_field txt_title"
+          id="txt_title"
+
+          v-model="form.category"
+        >
+        </textarea>
+
         <h3>Contenu</h3>
-        <textarea
+        <textarea v-on:change="resize()"
           contentEditable="true"
           class="txt_field txt_title"
           id="txt_title"
@@ -68,6 +69,16 @@
         init() {
           
         },
+        resize() {
+          let objs = document.getElementsByTagName('textarea')
+          for (let j in objs) {
+            let that = objs[j]
+            if (that.style != undefined) {
+              that.style.height = 'auto';
+              that.style.height = that.scrollHeight + 'px';
+            }
+          }
+        },
         createForm() {
           const data = this.$data.form
           axiosClient.post('/contact/create', 
@@ -88,6 +99,9 @@
       },
       beforeMount: function() {
         this.init()
+      },
+      updated: function() {
+        this.resize()
       },
   }
   </script>
