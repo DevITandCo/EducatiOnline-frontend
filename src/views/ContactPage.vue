@@ -5,7 +5,7 @@
         <br/>
         <h1>Nouveau formulaire de contact</h1>
 
-        <h3>E-mail</h3>
+        <h4>E-mail</h4>
         <input type="email"
           contentEditable="true"
           class="txt_field txt_title"
@@ -14,7 +14,7 @@
           v-model="form.author"
         >
 
-        <h3>Objet</h3>
+        <h4>Objet</h4>
         <textarea v-on:change="resize()"
           contentEditable="true"
           class="txt_field txt_title"
@@ -24,7 +24,7 @@
         >
         </textarea>
 
-        <h3>Contenu</h3>
+        <h4>Contenu</h4>
         <textarea v-on:change="resize()"
           contentEditable="true"
           class="txt_field txt_title"
@@ -35,7 +35,7 @@
         </textarea>
 
           <div class="cud_articles">
-            <h4><button v-on:click="createForm()" class="btn btn-primary btn-lg btn-block">Créer</button></h4>
+            <h4><button v-on:click="createForm()" class="btn btn-primary btn-lg btn-block">Envoyer</button></h4>
           </div>
         </form>
       </div>
@@ -109,12 +109,12 @@
   <style scoped>
     h1 {
       text-align: center;
-      background-color: #0a2f96;
-      border-radius: 20px;
-      padding: 10px;
-      color: white;
+      
     }
     h3 {
+      margin: 40px 0 0;
+    }
+    h4 {
       margin: 40px 0 0;
     }
     ul {
