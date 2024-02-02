@@ -35,7 +35,7 @@
         </textarea>
 
           <div class="cud_articles">
-            <h4><button v-on:click="createForm()">Créer</button></h4>
+            <h4><button v-on:click="createForm()" class="btn btn-primary btn-lg btn-block">Créer</button></h4>
           </div>
         </form>
       </div>
@@ -107,6 +107,13 @@
   </script>
   
   <style scoped>
+    h1 {
+      text-align: center;
+      background-color: #0a2f96;
+      border-radius: 20px;
+      padding: 10px;
+      color: white;
+    }
     h3 {
       margin: 40px 0 0;
     }
@@ -124,6 +131,7 @@
   
     .txt_field {
       width: 60vw;
+      margin-bottom: 20px;
       /* border: none; */
       /* outline: none; */
       /* resize: none; */
@@ -146,6 +154,22 @@
     }
     .cud_articles a {
       flex: auto;
+      border-radius: 20px;
+      padding: 10px;
     }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+    }
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+    }
+    
   </style>
     
