@@ -127,6 +127,7 @@
         },
         createArticle() {
           const data = this.$data.article
+          let that = this
           axiosClient.post('/article/create', 
             {
               title: data.title,
@@ -141,6 +142,7 @@
             ).then(function (response) {
               console.log(response);
               toast.success('Création réussie !');
+              that.$router.push('/');
         }).catch(function (error) {
             console.log(error);
             toast.error('Erreur lors de la création.');
