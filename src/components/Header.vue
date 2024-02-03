@@ -101,6 +101,7 @@ function redirect(){
 function logout() {
     // Update the isLoggedIn state
     store.commit('updateIsLoggedIn', false);
+    store.commit('setIsAdmin', "0");
 
     // Refresh the page
     location.reload();
