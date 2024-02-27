@@ -4,10 +4,9 @@
         <v-layout row wrap>
           <v-flex xs12>
             <v-card height="400" color="transparent" flat>
-              <div class="display-3 mt-5">404 Page Not Found</div>
+              <div class="display-3 mt-5">403 Unauthorized</div>
               <div class="grey--text lighten-5">
-                La page à laquelle vous essayez d'accéder n'a jamais existé dans cette réalité,
-                ou a migré vers un univers parallèle.
+                Vous n'avez pas les permissions requises pour accéder à cette page.
               </div>
               <div class="paragraph-text mt-2">
                 <br />

@@ -1,16 +1,16 @@
 import { createStore } from 'vuex'
+import LocalStorage from './localstorage-plugin';
 
 
 export default createStore({
+  plugins: [LocalStorage],
   state: {
     toasts: [],
     isLoggedIn: false,
-    token: null,
     isAdmin: 0
   },
   getters: {
     isLoggedIn: state => state.isLoggedIn,
-    token: state => state.token,
     isAdmin: state => state.isAdmin
   },
   mutations: {
@@ -19,10 +19,6 @@ export default createStore({
     },
     setLoggedOut(state) {
       state.isLoggedIn = false;
-    },
-    setToken(state, value){
-      state.token = value;
-      console.log("Token set in Vuex:", state.token);
     },
     updateIsLoggedIn(state, isLoggedIn) {
       state.isLoggedIn = isLoggedIn;
