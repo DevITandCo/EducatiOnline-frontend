@@ -7,17 +7,17 @@
         <table class="mgt">
             <tr>
                 <th>Courriel de l'auteur</th>
-                <td>Catégorie</td>
-                <td>Contenu</td>
-                <td colspan="2">Options</td>
+                <th>Catégorie</th>
+                <th>Contenu</th>
+                <th colspan="2">Options</th>
             </tr>
             <tr v-for="(form,i) in getForm()"
                 :key="i"
                 :to=getForm().length>
-            <th>{{ form.author }}</th>
+            <td>{{ form.author }}</td>
             <td>{{ form.category }}</td>
             <td>{{ form.content }}</td>
-            <td><button v-on:click="deleteForm(form._id)">Supprimer</button></td> 
+            <td><button v-on:click="deleteForm(form._id)"><img src='@/assets/logo-delete.png' alt='Delete logo' /></button></td> 
             </tr>
         </table>
 
@@ -60,17 +60,6 @@ export default {
                     toast.error('Erreur lors de la suppression.');
                 });
         },
-        // changeRank(id, rank) {
-        //     axiosClient.post('/auth/setRank', 
-        //     {id: id, rank: rank}
-        //         ).then(function (response) {
-        //             console.log(response)
-        //             toast.success('Création réussie !');
-        //         }).catch(function (error) {
-        //             console.log(error);
-        //             toast.error('Erreur lors de la création.');
-        //         });
-        // }
       },
       beforeMount: function() {
         // use is when page changes
@@ -96,6 +85,18 @@ export default {
   .admin {
     display: flex;
     flex-direction: column;
+  }
+
+  .admin th {
+    background-color: #DBDBDB;
+  }
+  .admin th, .admin td {
+    border: 1px solid #BDBDBD;
+  }
+
+  .admin td img {
+    width: 25px;
+    height: 25px;
   }
 </style>
   

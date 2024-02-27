@@ -1,10 +1,22 @@
+<script setup>
+import { computed } from "vue";
+import { useStore } from 'vuex';
+
+const store = useStore();
+const isAdmin = computed(() => store.state.isAdmin);
+
+if (isAdmin.value != 1) {
+  window.location.replace("/");
+}
+</script>
+
 <template>
     <div class="admin">
         <h1>Plateforme d'administration</h1>
-        <p><a href="/edit?id=">Créer un article</a></p>
-        <p><a href="/contactmanagement">Gestion des formulaires de contact</a></p>
-        <p>Gestion des comptes</p>
-        <table class="mgt">
+        <h4><router-link to="/edit?id=">Créer un article</router-link></h4>
+        <h4><router-link to="/contactmanagement">Gestion des formulaires de contact</router-link></h4>
+        <h3>Gestion des comptes</h3>
+        <table>
             <tr>
                 <th>Courriel</th>
                 <th>Prénom</th>
@@ -35,7 +47,6 @@ export default {
     data() {
       return {
         users: '',
-        publicPath: process.env.BASE_URL
       }
     },
     methods: {
@@ -77,6 +88,12 @@ export default {
       beforeMount: function() {
         // use is when page changes
         this.init()
+        const store = useStore();
+        const isAdmin = computed(() => store.state.isAdmin);
+
+        if (isAdmin.value != 1) {
+          window.location.replace("/");
+        }
       },
       updated: function() {
         // use it when only parameter changes
@@ -112,4 +129,3 @@ export default {
     height: 25px;
   }
   </style>
-  

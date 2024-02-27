@@ -4,17 +4,8 @@
       <form @submit.prevent="submitForm">
         <br/>
         <h1>Nouveau formulaire de contact</h1>
-        <h3>Categorie</h3>
-        <textarea
-          contentEditable="true"
-          class="txt_field txt_title"
-          id="txt_title"
 
-          v-model="form.category"
-        >
-        </textarea>
-
-        <h3>E-mail</h3>
+        <h4>E-mail</h4>
         <input type="email"
           contentEditable="true"
           class="txt_field txt_title"
@@ -23,8 +14,18 @@
           v-model="form.author"
         >
 
-        <h3>Contenu</h3>
-        <textarea
+        <h4>Objet</h4>
+        <textarea v-on:change="resize()"
+          contentEditable="true"
+          class="txt_field txt_title"
+          id="txt_title"
+
+          v-model="form.category"
+        >
+        </textarea>
+
+        <h4>Contenu</h4>
+        <textarea v-on:change="resize()"
           contentEditable="true"
           class="txt_field txt_title"
           id="txt_title"
@@ -34,7 +35,7 @@
         </textarea>
 
           <div class="cud_articles">
-            <h4><button v-on:click="createForm()">Créer</button></h4>
+            <h4><button v-on:click="createForm()" class="btn btn-primary btn-lg btn-block">Envoyer</button></h4>
           </div>
         </form>
       </div>
@@ -45,16 +46,6 @@
   import { toast } from 'vue3-toastify';
 
   export default {
-    name: 'EditDeficiencyFormPage',
-    props: {
-      title: String,
-      pathology: String,
-      symptoms: String,
-      contributions: String,
-      procedures: String,
-      additional: String,
-      related: String
-    },
     data() {
       return {
         form: {
@@ -67,6 +58,16 @@
     methods: {
         init() {
           
+        },
+        resize() {
+          let objs = document.getElementsByTagName('textarea')
+          for (let j in objs) {
+            let that = objs[j]
+            if (that.style != undefined) {
+              that.style.height = 'auto';
+              that.style.height = that.scrollHeight + 'px';
+            }
+          }
         },
         createForm() {
           const data = this.$data.form
@@ -89,11 +90,21 @@
       beforeMount: function() {
         this.init()
       },
+      updated: function() {
+        this.resize()
+      },
   }
   </script>
   
   <style scoped>
+    h1 {
+      text-align: center;
+      
+    }
     h3 {
+      margin: 40px 0 0;
+    }
+    h4 {
       margin: 40px 0 0;
     }
     ul {
@@ -110,6 +121,7 @@
   
     .txt_field {
       width: 60vw;
+      margin-bottom: 20px;
       /* border: none; */
       /* outline: none; */
       /* resize: none; */
@@ -132,6 +144,22 @@
     }
     .cud_articles a {
       flex: auto;
+      border-radius: 20px;
+      padding: 10px;
     }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+    }
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+    }
+    
   </style>
     
