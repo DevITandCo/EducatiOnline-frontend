@@ -12,9 +12,9 @@
                 <input type="checkbox" @click="showPassword = !showPassword"> Afficher mot de passe
             </div>
             <button class="btn btn-dark btn-lg btn-block">Se connecter</button>
-            <p class="forgot-password text-right mt-2 mb-4">
+            <!-- <p class="forgot-password text-right mt-2 mb-4">
                 <router-link to="/reinitialisation">Mot de passe oublié ?</router-link>
-            </p>
+            </p> -->
         </form>
     </div>
 </template>
@@ -40,7 +40,6 @@ export default {
             }).then(response => {
                 toast.success('Connexion réussie !');
                 this.$store.commit('setLoggedIn'); // Set isLoggedIn to true
-                this.$store.commit('setToken', response.data.data.token);
                 this.$store.commit('setIsAdmin', response.data.data.rank);
                 this.$router.push('/'); // Redirection to path "/" which is the index page
             }).catch(error => {

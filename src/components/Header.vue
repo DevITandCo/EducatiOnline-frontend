@@ -91,7 +91,7 @@ const filteredList = () => {
 
 function clearSearch() {
     input.value = "";
-refresh()
+    refresh()
 }
 
 function redirect(){

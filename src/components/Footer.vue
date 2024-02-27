@@ -32,21 +32,21 @@ const isAdmin = computed(() => store.state.isAdmin);
 
 <style>
 .footer {
-    background-color: #0375e3; /* Dark background for the footer */
-    color: #ffffff; /* White text color */
-    padding: 20px; /* Some padding around the content */
-    display: flex; /* Using flexbox for layout */
-    justify-content: space-between; /* Space between the two divs */
-    align-items: center; /* Center items vertically */
-    font-size: 0.9em; /* Slightly smaller font size for the footer */
+    background-color: #0375e3;
+    color: #ffffff; 
+    padding: 20px;
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    font-size: 0.9em; 
 }
 
 .footer-content {
     list-style: none;
-    display: flex; /* Using flexbox for layout within the content divs */
-    flex-direction: column; /* Stack children vertically */
-    align-items: center; /* Center align the items */
-    text-align: center; /* Center the text */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
 .footer-item {
@@ -54,13 +54,11 @@ const isAdmin = computed(() => store.state.isAdmin);
     margin: 0;
 }
 .brand-name {
-    font-weight: bold; /* Make the brand name bold */
-    margin-bottom: 5px; /* Space between the brand name and the copyright text */
+    font-weight: bold;
+    margin-bottom: 5px;
 }
 
 .company-name {
-    font-weight: bold; /* Make the company name bold */
+    font-weight: bold;
 }
-
-/* Add more styles as needed */
 </style>
