@@ -1,27 +1,34 @@
+<script setup>
+    import LeftNavBar from '@/components/LeftNavBar.vue';
+</script>
+
 <template>
-  <div class="deficiency">
-    <router-link v-if="isAdmin()" :to="'/edit?id=' + article.id" id="edit">Modifier l'article</router-link>
-  <!-- button -->
-  <h1 id="title">{{ article.title }}</h1>
-  <h3>Pathologies</h3>
-  <p class="input" id="pathology"></p>
-  <h3>Symptomes</h3>
-  <p class="input" id="symptoms"></p>
-  <h3>Contributions</h3>
-  <p class="input" id="contributions"></p>
-  <h3>Procédures</h3>
-  <p class="input" id="procedures"></p>
-  <h3>En savoir plus</h3>
-  <p class="input" id="additional"></p>
-  <h3>Fiches liées</h3>
-  <p class="input" id="related"></p>
-  <!-- <p v-for="(links) in getAdditionalLinks()" :key="links.name">
-    <a target="_blank" :href='"//" + links.url'>{{ links.name }}</a></p>
-  <h3>Fiches liées</h3>
-  <p v-for="(links) in getRelatedLinks()" :key="links.name">
-    <router-link :to='links.url'>{{ links.name }}
-    </router-link></p> -->
-</div>
+  <div class="mbappe">
+    <LeftNavBar />
+      <div class="deficiency">
+        <router-link v-if="isAdmin()" :to="'/edit?id=' + article.id" id="edit">Modifier l'article</router-link>
+      <!-- button -->
+      <h1 id="title">{{ article.title }}</h1>
+      <h3 id="linkPathologie">Pathologies</h3>
+      <p class="input" id="pathology"></p>
+      <h3 id="linkSymptomes">Symptomes</h3>
+      <p class="input" id="symptoms"></p>
+      <h3 id="linkContributions">Contributions</h3>
+      <p class="input" id="contributions"></p>
+      <h3 id="linkProcedures">Procédures</h3>
+      <p class="input" id="procedures"></p>
+      <h3 id="linkAdditional">En savoir plus</h3>
+      <p class="input" id="additional"></p>
+      <h3 id="linkRelated">Fiches liées</h3>
+      <p class="input" id="related"></p>
+      <!-- <p v-for="(links) in getAdditionalLinks()" :key="links.name">
+        <a target="_blank" :href='"//" + links.url'>{{ links.name }}</a></p>
+      <h3>Fiches liées</h3>
+      <p v-for="(links) in getRelatedLinks()" :key="links.name">
+        <router-link :to='links.url'>{{ links.name }}
+        </router-link></p> -->
+    </div>
+  </div>
 </template>
 
 <script>
@@ -242,6 +249,27 @@ methods: {
 </script>
 
 <style scoped>
+
+.deficiency {
+  flex : 7;
+}
+.mbappe {
+  display: flex;
+  flex-direction: column;
+}
+
+@media only screen and (min-width: 1200px) {
+    .mbappe {
+      flex-direction: row;
+    }
+  }
+
+@media only screen and (min-width: 1980px){
+  .deficiency {
+    flex : 13;
+  }
+}
+
 h3 {
   margin: 40px 0 0;
 }
