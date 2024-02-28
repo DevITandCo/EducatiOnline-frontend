@@ -251,18 +251,24 @@ methods: {
 <style scoped>
 
 .deficiency {
-  flex : 10;
+  flex : 7;
 }
 .mbappe {
   display: flex;
   flex-direction: column;
 }
 
-@media only screen and (min-width: 1024px) {
+@media only screen and (min-width: 1200px) {
     .mbappe {
       flex-direction: row;
     }
   }
+
+@media only screen and (min-width: 2000px){
+  .deficiency {
+    flex : 13;
+  }
+}
 
 h3 {
   margin: 40px 0 0;

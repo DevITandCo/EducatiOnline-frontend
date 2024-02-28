@@ -33,7 +33,7 @@
     padding: 20px;
   }
 
-  @media only screen and (min-width: 1024px) {
+  @media only screen and (min-width: 1200px) {
     .left-nav-bar {
       width: 200px; 
       /* height: 100%;  */
@@ -43,7 +43,7 @@
       height: 100vh;
     }
   }
-  
+
   ul {
     list-style-type: none;
     padding: 0;
