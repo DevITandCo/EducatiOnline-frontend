@@ -264,7 +264,7 @@ methods: {
     }
   }
 
-@media only screen and (min-width: 2000px){
+@media only screen and (min-width: 1980px){
   .deficiency {
     flex : 13;
   }
