@@ -40,6 +40,7 @@
 
 <script setup>
 import { axiosClient } from '@/apiClient'; 
+import router from '@/router';
 import { ref, computed } from "vue";
 import { useStore } from 'vuex';
 
@@ -100,7 +101,7 @@ function redirect(){
 
 function logout() {
     store.commit('updateIsLoggedIn', false);
-    // location.reload();
+    router.push('/')
 }
 </script>
 
@@ -111,6 +112,8 @@ function logout() {
     padding: 10px 20px;
     display: flex;
     align-items: center;
+    /* justify-content: space-around; */
+    /* justify-content: space-evenly; */
     justify-content: space-between;
     font-size: 0.9em;
 }
@@ -126,6 +129,7 @@ function logout() {
     display: flex;
     align-items: center;
 }
+
 
 .nav-item {
     margin: 0 15px;
@@ -168,5 +172,15 @@ function logout() {
     position: absolute;
     flex-direction: column;
     top: 55px;
+    z-index: 10;
+}
+
+
+@media only screen and (max-width: 1980px){
+    .header-nav {
+        display: flex;
+        flex-direction: column;
+        font-size: 0.9em;
+    }
 }
 </style>
