@@ -22,7 +22,7 @@
       <h3 id="linkRelated">Fiches liées</h3>
       <p class="input" id="related"></p>
     </div>
-    <img id="returntop" v-on:click="returntop()" alt="image return to top" src="@/assets/logo-return-to-top.png"/>
+      <img id="returntop" v-on:click="returntop()" alt="image return to top" src="@/assets/logo-return-to-top.png"/>
   </div>
 </template>
 
@@ -235,6 +235,12 @@ methods: {
 
 .deficiency {
   flex : 7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.deficiency p{
+  width: 94%;
 }
 .mbappe {
   display: flex;
@@ -244,6 +250,9 @@ methods: {
 @media only screen and (min-width: 1200px) {
     .mbappe {
       flex-direction: row;
+    }
+    #returntop{
+      visibility: hidden;
     }
   }
 
