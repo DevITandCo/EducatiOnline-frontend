@@ -12,6 +12,7 @@ import ContactManagementPage from '@/views/ContactManagement.vue'
 import EditDeficiencyFormPage from '@/views/NewDeficiencyForm.vue'
 import ContactPage from '@/views/ContactPage.vue'
 import UnauthorizedView from '@/views/UnauthorizedView.vue'
+import Confidentialite from '@/views/Confidentialite.vue'
 
 const routes = [
   { path: '/', name:'Acceuil',component: AcceuilPage},
@@ -26,7 +27,8 @@ const routes = [
   { path: '/faq', name:'FAQ', component: FaqPage },
   { path: '/edit', component: EditDeficiencyFormPage},
   { path: '/unauthorized', component: UnauthorizedView},
-  { path: '/:catchAll(.*)', name:'404Name', component: NotFound}
+  { path: '/:catchAll(.*)', name:'404Name', component: NotFound},
+  { path: '/rgpd', name:'confidentialite', component: Confidentialite}
 ]
 
 const router = createRouter({

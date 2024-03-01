@@ -9,6 +9,7 @@
             <a href="#ressources">Ressources</a>
             <a href="#collaborations">Collaborations</a>
             <a href="#contact">Contact</a>
+            <a href="#confidentialite">RGPD</a>
         </nav>
       </section>
     </header>
@@ -31,7 +32,12 @@
 
         <section id="contact">
             <h2>Contact</h2>
-            <p>N'hésitez pas à nous contacter pour toute question ou suggestion. Vous pouvez nous envoyer un formulaire de contact via la page suivante: <a href="/contact">Contact</a>.</p>
+            <p>N'hésitez pas à nous contacter pour toute question ou suggestion. Vous pouvez nous envoyer un formulaire de contact via la page suivante: <a href="/contact">Contact</a></p>
+        </section>
+
+        <section id="confidentialite">
+          <h2>Politique de confidentialité</h2>
+          <p>Vous pouvez consulter notre page sur la protection des données, si vous voulez vous renseigner sur la collecte et l'utilisation de vos données personnelles, cliquez sur le lien suivant: <a href="/rgpd">RGPD</a></p>
         </section>
     </main>
   </div>
@@ -148,6 +154,11 @@ header nav {
 
 #contact {
   background-image: url('@/assets/image-contact.webp');
+}
+
+#confidentialite {
+  background-image: url('@/assets/RGPD.jpg');
+  background-position: bottom;
 }
 
 @media only screen and (max-width: 1980px){
