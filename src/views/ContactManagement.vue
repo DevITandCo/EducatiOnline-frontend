@@ -50,11 +50,13 @@ export default {
             return this.$data.forms
         },
         deleteForm(id) {
+          let obj = this
             axiosClient.post('/contact/delete', 
             {id: id}
             ).then(function (response) {
                 console.log(response)
                 toast.success('Suppression réussie !');
+                obj.init()
                 }).catch(function (error) {
                     console.log(error);
                     toast.error('Erreur lors de la suppression.');
@@ -67,7 +69,7 @@ export default {
       },
       updated: function() {
         // use it when only parameter changes
-        this.init()
+        // this.init()
       },
 }
 </script>

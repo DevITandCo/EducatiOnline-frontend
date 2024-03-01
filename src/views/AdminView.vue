@@ -27,19 +27,15 @@ if (isAdmin.value != 1) {
           </div>
         </router-link>
       </div>
+      <div class="accountmanagement">
         <h3>Gestion des comptes</h3>
         <table>
             <tr>
                 <th>Courriel</th>
-                <!-- <th>Prénom</th>
-                <th>Nom</th> -->
-                <th>Actions</th>
+                <th v-on:click="sortTable(1)">Actions</th>
             </tr>
-            <tr v-for="(user) in filterUsers()"
-                :key="user">
+            <tr v-for="(user) in filterUsers()" :key="user">
             <td>{{ user.email  }}</td>
-            <!-- <td>{{ user.firstName  }}</td>
-            <td>{{ user.lastName  }}</td> -->
             <td>
               <div class="buttons">
                 <button v-on:click="deleteUser(user._id)"><img alt="Logo delete" src="@/assets/logo-delete.png"/></button>
@@ -49,6 +45,7 @@ if (isAdmin.value != 1) {
             </td>
             </tr>
         </table>
+      </div>
     </div>
   </template>
   
@@ -101,7 +98,7 @@ export default {
                     console.log(error);
                     toast.error('Erreur lors de la suppression.');
                 });
-        }
+                }
       },
       beforeMount: function() {
         // use is when page changes
@@ -122,10 +119,6 @@ export default {
   
   <!-- Add "scoped" attribute to limit CSS to this component only -->
   <style scoped>
-  h3 {
-    margin: 40px 0 0;
-  }
-
   a {
     color: #42b983;
   }
@@ -151,6 +144,9 @@ export default {
     align-items: center;
   }
 
+  .admin .accountmanagement {
+    margin: 40px 0;
+  }
   .admin table {
     width: 60vw;
   }

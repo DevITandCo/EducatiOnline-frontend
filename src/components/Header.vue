@@ -112,14 +112,13 @@ function logout() {
     padding: 10px 20px;
     display: flex;
     align-items: center;
-    /* justify-content: space-around; */
-    /* justify-content: space-evenly; */
     justify-content: space-between;
     font-size: 0.9em;
 }
 
 .header-brand img {
     max-height: 50px;
+    margin-left: -10px;
 }
 
 .header-nav, .list {
@@ -150,6 +149,7 @@ function logout() {
 .search-form {
     display: flex;
     flex-direction: column;
+    width: 15vw;
 }
 
 .form-control {
@@ -162,8 +162,8 @@ function logout() {
 
 .link {
     color: black;
-    width: 20vw;
-    height: 5vh;
+    width: 15vw;
+    min-height: 5vh;
     background-color: white;
     border: 1px solid black;
 }
@@ -183,4 +183,15 @@ function logout() {
         font-size: 0.9em;
     }
 }
+
+@media only screen and (max-width: 1200px){
+    .search-form {
+        width: 35vw;
+    }
+
+    .link {
+        width: 35vw;
+    }
+}
+
 </style>

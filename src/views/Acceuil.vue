@@ -94,12 +94,6 @@ a {
   color: #42b983;
 }
 
-/* .accueil { */
-  /* margin: 0 auto; */
-  /* width: 90vw; */
-  /* box-shadow: 1px 1px 15px black; */
-/* } */
-
 section {
   padding: 15px;
   margin: 30px 0;
@@ -132,11 +126,15 @@ header nav {
   margin: 25px;
 }
 
+header nav a {
+  font-size: 1.2em;
+}
+
 #returntop {
   width: 80px;
   opacity: 0;
   position: fixed;
-  right: 10vh;
+  right: 10vw;
   bottom: 20vh;
 }
 
@@ -167,5 +165,4 @@ header nav {
     bottom: 25vh;
   }
 }
-
 </style>
