@@ -49,5 +49,4 @@ jobs:
           --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/educonline-frontend:${{ github.sha }} \
           --platform managed \
           --region us-central1 \
-          --allow-unauthenticated \
-          --port 8080
+          --allow-unauthenticated
