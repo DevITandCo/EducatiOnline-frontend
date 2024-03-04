@@ -1,21 +1,25 @@
-FROM node:14 as build-stage
+# Use an official Node.js runtime as a parent image
+FROM node:14 as builder
 
 WORKDIR /app
 
 COPY package*.json ./
+
 RUN npm install
 
 COPY . .
 
 RUN npm run build
 
-FROM nginx:1.21-alpine
+FROM node:14-alpine
 
-# Copy the NGINX configuration file 
-COPY nginx.conf /etc/nginx/nginx.conf
+WORKDIR /app
 
-# Copy the built assets 
-COPY --from=build-stage /app/dist /usr/share/nginx/html
+COPY --from=builder /app/dist /app
 
-# NGINX listens on port 8080 by default in Cloud Run
-EXPOSE 8080
+# Install serve to run the application
+RUN npm install -g serve
+
+EXPOSE 5000
+
+CMD ["serve", "-s", ".", "-l", "5000"]
