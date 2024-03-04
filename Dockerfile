@@ -11,8 +11,11 @@ RUN npm run build
 
 FROM nginx:1.21-alpine
 
+# Copy the NGINX configuration file
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# Copy the built assets to the NGINX web root
 COPY --from=build-stage /app/dist /usr/share/nginx/html
 
+# NGINX listens on port 8080 by default in Cloud Run
 EXPOSE 8080
-
-#CMD ["nginx", "-g", "daemon off;", "-c", "/etc/nginx/nginx.conf"]
