@@ -2,9 +2,7 @@
   <div class="deficiency">
     <form @submit.prevent="submitForm">
       <br/>
-      <div class="form-title">
-        <h1>Nouveau formulaire de contact</h1>
-      </div>
+      <h1>Nouveau formulaire de contact</h1>
 
       <h4>E-mail</h4>
       <input type="email"
@@ -96,14 +94,6 @@
   </script>
   
   <style scoped>
-    .form-title {
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      padding: 10px;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-
     h1 {
       text-align: center;
       text-decoration: underline;
