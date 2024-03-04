@@ -20,6 +20,6 @@ COPY --from=builder /app/dist /app
 # Install serve to run the application
 RUN npm install -g serve
 
-EXPOSE 5000
+EXPOSE 8080
 
-CMD ["serve", "-s", ".", "-l", "5000"]
+CMD ["serve", "-s", ".", "-l", "8080"]
