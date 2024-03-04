@@ -156,7 +156,6 @@ function logout() {
     padding: 5px 10px;
     margin-right: 10px;
     border: 1px solid #adb5bd; 
-    background-color: #495057; 
     color: #ffffff;
 }
 
