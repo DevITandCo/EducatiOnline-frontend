@@ -46,7 +46,7 @@ jobs:
     - name: Deploy to Google Cloud Run
       run: |
         gcloud run deploy educonline-frontend \
-          --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/educonline-frontend:${{ github.sha }}"
-          --platform managed
-          --region us-central1
+          --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/educonline-frontend:${{ github.sha }} \
+          --platform managed \
+          --region us-central1 \
           --allow-unauthenticated
