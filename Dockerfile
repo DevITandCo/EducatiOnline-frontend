@@ -13,6 +13,6 @@ FROM nginx:1.21-alpine
 
 COPY --from=build-stage /app/dist /usr/share/nginx/html
 
-EXPOSE 8080
+EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;", "-c", "/etc/nginx/nginx.conf"]
