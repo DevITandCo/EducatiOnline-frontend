@@ -32,7 +32,7 @@ if (isAdmin.value != 1) {
         <table>
             <tr>
                 <th>Courriel</th>
-                <th v-on:click="sortTable(1)">Actions</th>
+                <th>Actions</th>
             </tr>
             <tr v-for="(user) in filterUsers()" :key="user">
             <td>{{ user.email  }}</td>
