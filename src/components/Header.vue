@@ -53,7 +53,7 @@ var articles = [];
 const refresh = () => {
     axiosClient.get('article/getAll')
     .then(response => {
-        const responseArray = response.data.data.existingArticle;
+        const responseArray = response.data.data.articles;
         articles = []
         responseArray.forEach(element => {
             articles.push({ title: element.title, path: "/formulaire?id=" + element._id });
