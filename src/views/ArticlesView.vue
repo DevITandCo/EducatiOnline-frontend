@@ -58,8 +58,7 @@ export default {
             let data = this.$data
             axiosClient.get('/article/getAll',
                 ).then(function (response) {
-                    data.articles = response.data.data.existingArticle
-                    console.log(data.articles[0].title)
+                    data.articles = response.data.data.articles
                 }).catch(function (error) {
                     console.log(error);
                 });
