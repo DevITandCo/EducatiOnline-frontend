@@ -14,16 +14,16 @@ if (isAdmin.value != 1) {
     <div class="admin">
       <h1>Plateforme d'administration</h1>
       <div class="actions">
-        <router-link to="/edit?id=">
+        <router-link to="/articlesmanagement">
           <div class="action">
             <img alt="logo creer un article" src="@/assets/logo-ecrire-article.png" />
-            <h4>Créer un article</h4>
+            <h4>Plateforme de gestion des articles</h4>
           </div>
         </router-link>
         <router-link to="/contactmanagement">
           <div class="action">
             <img alt="logo gestion des formulaires de contacts" src="@/assets/logo-contact-management.png"/>
-            <h4>Gestion des formulaires de contact</h4>
+            <h4>Plateforme de gestion des formulaires de contact</h4>
           </div>
         </router-link>
       </div>
