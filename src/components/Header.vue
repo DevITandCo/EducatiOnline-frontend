@@ -67,7 +67,7 @@ const refresh = () => {
 const searchDeficiency = () => {
     axiosClient.get('article/getAll')
     .then(response => {
-        const responseArray = response.data.data.existingArticle;
+        const responseArray = response.data.data.articles;
         let found = false;
         responseArray.forEach(element => {
             if (input.value === element.title) {
