@@ -23,6 +23,8 @@
 import { axiosClient } from '@/apiClient';
 import { toast } from 'vue3-toastify';
 
+
+
 export default {
     name: 'Signin',
     data() {
@@ -41,6 +43,10 @@ export default {
                 toast.success('Connexion réussie !');
                 this.$store.commit('setLoggedIn'); // Set isLoggedIn to true
                 this.$store.commit('setIsAdmin', response.data.data.rank);
+                this.$store.commit('setFirstname', response.data.data.firstName);
+                this.$store.commit('setLastname', response.data.data.lastName);
+                this.$store.commit('setEmail', response.data.data.email);
+                this.$store.commit('setId', response.data.data.id);
                 this.$router.push('/'); // Redirection to path "/" which is the index page
             }).catch(error => {
                 console.log(error);
