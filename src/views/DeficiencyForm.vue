@@ -1,31 +1,36 @@
+<script setup>
+    import LeftNavBar from '@/components/LeftNavBar.vue';
+</script>
+
 <template>
-  <div class="deficiency">
-    <router-link v-if="isAdmin()" :to="'/edit?id=' + article.id" id="edit">Modifier l'article</router-link>
-  <!-- button -->
-  <h1 id="title">{{ article.title }}</h1>
-  <h3>Pathologies</h3>
-  <p class="input" id="pathology"></p>
-  <h3>Symptomes</h3>
-  <p class="input" id="symptoms"></p>
-  <h3>Contributions</h3>
-  <p class="input" id="contributions"></p>
-  <h3>Procédures</h3>
-  <p class="input" id="procedures"></p>
-  <h3>En savoir plus</h3>
-  <p class="input" id="additional"></p>
-  <h3>Fiches liées</h3>
-  <p class="input" id="related"></p>
-  <!-- <p v-for="(links) in getAdditionalLinks()" :key="links.name">
-    <a target="_blank" :href='"//" + links.url'>{{ links.name }}</a></p>
-  <h3>Fiches liées</h3>
-  <p v-for="(links) in getRelatedLinks()" :key="links.name">
-    <router-link :to='links.url'>{{ links.name }}
-    </router-link></p> -->
-</div>
+  <div class="mbappe" v-on:scroll="checkScroll()">
+    <LeftNavBar />
+      <div class="deficiency">
+        <router-link v-if="isAdmin()" :to="'/edit?id=' + article.id" id="edit">Modifier l'article</router-link>
+      <!-- button -->
+      <h1 id="title">{{ article.title }}</h1>
+      <h3 id="linkPathologie">Pathologies</h3>
+      <p class="input" id="pathology"></p>
+      <h3 id="linkSymptomes">Symptomes</h3>
+      <p class="input" id="symptoms"></p>
+      <h3 id="linkContributions">Contributions</h3>
+      <p class="input" id="contributions"></p>
+      <h3 id="linkProcedures">Procédures</h3>
+      <p class="input" id="procedures"></p>
+      <h3 id="linkAdditional">En savoir plus</h3>
+      <p class="input" id="additional"></p>
+      <h3 id="linkRelated">Fiches liées</h3>
+      <p class="input" id="related"></p>
+    </div>
+  </div>
+  <img id="returntop" v-on:click="returntop()" alt="image return to top" src="@/assets/logo-return-to-top.png"/>
 </template>
 
 <script>
 import { axiosClient } from '@/apiClient';
+
+import { computed } from "vue";
+import { useStore } from 'vuex';
 
 export default {
 name: 'EditDeficiencyFormPage',
@@ -43,6 +48,12 @@ data() {
       related: ''
     }
   }
+},
+created () {
+  window.addEventListener('scroll', this.checkScroll);
+},
+unmounted () {
+  window.removeEventListener('scroll', this.checkScroll);
 },
 methods: {
     init() {
@@ -193,55 +204,49 @@ methods: {
       }
     },
     isAdmin() {
-      //  TODO check rank value
-      // get user rank from token
-      // or get request with user id
-      // axiosClient.get('/auth/rank?id=', {params: {id: user.id}} {
-      // })
-      return true
+        const store = useStore();
+        const isAdmin = computed(() => store.state.isAdmin);
+        return isAdmin.value == 1
     },
-    // getAdditionalLinks() {
-    //   let related = this.$data.article.additional
-    //   let links = related.split('\n')
-    //   let results = []
-    //   if (links.length > 1) {
-    //     for (let i=0; i<links.length; i++) {
-    //       let line = links[i].split('|')
-    //       let name = line[0]
-    //       let url = line[1]
-    //       results.push({name: name, url:url})
-    //     }
-    //   }
-    //   return results
-    // },
-    // getRelatedLinks() {
-    //   let related = this.$data.article.related
-    //   let links = related.split('\n')
-    //   let results = []
-    //   if (links.length > 1) {
-    //     for (let i=0; i<links.length; i++) {
-    //       let line = links[i].split('|')
-    //       let name = line[0]
-    //       let form_id = line[1].split(['id='])[1]
-    //       let url = "/formulaire?id=" + form_id
-    //       results.push({name: name, url:url})
-    //     }
-    //   }
-    //   return results
-    // }
+    returntop() {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      })
+    },
+    checkScroll() {
+      const returnButton = document.getElementById('returntop')
+      const scrollValue = window.scrollY
+      returnButton.style.opacity = scrollValue > 200 ? 0.8: 0;
+    }
   },
   beforeMount: function() {
-    // use is when page changes
+    // when page changes
     this.init()
   },
   updated: function() {
-    // use it when only parameter changes
+    // when only url parameter changes
     this.init()
   },
 }
 </script>
 
 <style scoped>
+
+.deficiency {
+  flex : 7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.deficiency p{
+  width: 94%;
+}
+.mbappe {
+  display: flex;
+  flex-direction: column;
+}
+
 h3 {
   margin: 40px 0 0;
 }
@@ -258,5 +263,28 @@ li {
 
 .nav-item {
   margin: 0 15px; /* Adjusted for a balanced look */
+}
+
+#returntop {
+  width: 80px;
+  opacity: 0;
+  position: fixed;
+  right: 10vw;
+  bottom: 25vh;
+}
+
+@media only screen and (min-width: 1980px){
+  .deficiency {
+    flex : 13;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .mbappe {
+    flex-direction: row;
+  }
+  #returntop{
+    visibility: hidden;
+  }
 }
 </style>

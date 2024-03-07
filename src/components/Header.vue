@@ -40,6 +40,7 @@
 
 <script setup>
 import { axiosClient } from '@/apiClient'; 
+import router from '@/router';
 import { ref, computed } from "vue";
 import { useStore } from 'vuex';
 
@@ -52,7 +53,7 @@ var articles = [];
 const refresh = () => {
     axiosClient.get('article/getAll')
     .then(response => {
-        const responseArray = response.data.data.existingArticle;
+        const responseArray = response.data.data.articles;
         articles = []
         responseArray.forEach(element => {
             articles.push({ title: element.title, path: "/formulaire?id=" + element._id });
@@ -66,7 +67,7 @@ const refresh = () => {
 const searchDeficiency = () => {
     axiosClient.get('article/getAll')
     .then(response => {
-        const responseArray = response.data.data.existingArticle;
+        const responseArray = response.data.data.articles;
         let found = false;
         responseArray.forEach(element => {
             if (input.value === element.title) {
@@ -100,7 +101,7 @@ function redirect(){
 
 function logout() {
     store.commit('updateIsLoggedIn', false);
-    // location.reload();
+    router.push('/')
 }
 </script>
 
@@ -117,6 +118,7 @@ function logout() {
 
 .header-brand img {
     max-height: 50px;
+    margin-left: -10px;
 }
 
 .header-nav, .list {
@@ -126,6 +128,7 @@ function logout() {
     display: flex;
     align-items: center;
 }
+
 
 .nav-item {
     margin: 0 15px;
@@ -146,20 +149,19 @@ function logout() {
 .search-form {
     display: flex;
     flex-direction: column;
+    width: 15vw;
 }
 
 .form-control {
     padding: 5px 10px;
     margin-right: 10px;
     border: 1px solid #adb5bd; 
-    background-color: #495057; 
-    color: #ffffff;
 }
 
 .link {
     color: black;
-    width: 20vw;
-    height: 5vh;
+    width: 15vw;
+    min-height: 5vh;
     background-color: white;
     border: 1px solid black;
 }
@@ -168,5 +170,26 @@ function logout() {
     position: absolute;
     flex-direction: column;
     top: 55px;
+    z-index: 10;
 }
+
+
+@media only screen and (max-width: 1980px){
+    .header-nav {
+        display: flex;
+        flex-direction: column;
+        font-size: 0.9em;
+    }
+}
+
+@media only screen and (max-width: 1200px){
+    .search-form {
+        width: 35vw;
+    }
+
+    .link {
+        width: 35vw;
+    }
+}
+
 </style>

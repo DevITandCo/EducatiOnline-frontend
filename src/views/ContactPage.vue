@@ -1,45 +1,42 @@
-
 <template>
-    <div class="deficiency">
-      <form @submit.prevent="submitForm">
-        <br/>
-        <h1>Nouveau formulaire de contact</h1>
+  <div class="deficiency">
+    <form @submit.prevent="submitForm">
+      <br/>
+      <h1>Nouveau formulaire de contact</h1>
 
-        <h4>E-mail</h4>
-        <input type="email"
-          contentEditable="true"
-          class="txt_field txt_title"
-          id="txt_title"
+      <h4>E-mail</h4>
+      <input type="email"
+        contentEditable="true"
+        class="txt_field txt_title"
+        id="txt_title"
+        v-model="form.author"
+      >
 
-          v-model="form.author"
-        >
+      <h4>Objet</h4>
+      <textarea v-on:change="resize()"
+        contentEditable="true"
+        class="txt_field txt_title"
+        id="txt_title"
+        v-model="form.category"
+      >
+      </textarea>
 
-        <h4>Objet</h4>
-        <textarea v-on:change="resize()"
-          contentEditable="true"
-          class="txt_field txt_title"
-          id="txt_title"
+      <h4>Contenu</h4>
+      <textarea v-on:change="resize()"
+        contentEditable="true"
+        class="txt_field txt_title"
+        id="txt_title"
+        v-model="form.content"
+      >
+      </textarea>
 
-          v-model="form.category"
-        >
-        </textarea>
+        <div class="cud_articles">
+          <h4><button v-on:click="createForm()" class="btn btn-primary btn-lg btn-block">Envoyer</button></h4>
+        </div>
+      </form>
+    </div>
+</template>
 
-        <h4>Contenu</h4>
-        <textarea v-on:change="resize()"
-          contentEditable="true"
-          class="txt_field txt_title"
-          id="txt_title"
-
-          v-model="form.content"
-        >
-        </textarea>
-
-          <div class="cud_articles">
-            <h4><button v-on:click="createForm()" class="btn btn-primary btn-lg btn-block">Envoyer</button></h4>
-          </div>
-        </form>
-      </div>
-  </template>
     
   <script>
   import { axiosClient } from '@/apiClient';
@@ -99,13 +96,20 @@
   <style scoped>
     h1 {
       text-align: center;
-      
+      text-decoration: underline;
+      font-weight: 700;
+      font-size: 34px; /* Adjust the font size as needed */
+      margin-bottom: 10px; /* Add some spacing below the title */
     }
+
     h3 {
       margin: 40px 0 0;
     }
+
     h4 {
       margin: 40px 0 0;
+      font-weight: 700;
+      font-style: italic;
     }
     ul {
       list-style-type: none;

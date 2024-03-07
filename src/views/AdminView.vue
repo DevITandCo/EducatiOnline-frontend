@@ -12,29 +12,40 @@ if (isAdmin.value != 1) {
 
 <template>
     <div class="admin">
-        <h1>Plateforme d'administration</h1>
-        <h4><router-link to="/edit?id=">Créer un article</router-link></h4>
-        <h4><router-link to="/contactmanagement">Gestion des formulaires de contact</router-link></h4>
+      <h1>Plateforme d'administration</h1>
+      <div class="actions">
+        <router-link to="/articlesmanagement">
+          <div class="action">
+            <img alt="logo creer un article" src="@/assets/logo-ecrire-article.png" />
+            <h4>Plateforme de gestion des articles</h4>
+          </div>
+        </router-link>
+        <router-link to="/contactmanagement">
+          <div class="action">
+            <img alt="logo gestion des formulaires de contacts" src="@/assets/logo-contact-management.png"/>
+            <h4>Plateforme de gestion des formulaires de contact</h4>
+          </div>
+        </router-link>
+      </div>
+      <div class="accountmanagement">
         <h3>Gestion des comptes</h3>
         <table>
             <tr>
                 <th>Courriel</th>
-                <th>Prénom</th>
-                <th>Nom</th>
                 <th>Actions</th>
             </tr>
-            <tr v-for="(user) in filterUsers()"
-                :key="user">
+            <tr v-for="(user) in filterUsers()" :key="user">
             <td>{{ user.email  }}</td>
-            <td>{{ user.firstName  }}</td>
-            <td>{{ user.lastName  }}</td>
             <td>
-              <button v-on:click="deleteUser(user._id)"><img alt="Logo delete" src="@/assets/logo-delete.png"/></button>
-              <button v-if="user.rank == 0" v-on:click="changeRank(user._id, 1 - parseInt(user.rank))"><img alt="Logo non admin" src="@/assets/logo-non-admin.png"/></button>
-              <button v-if="user.rank == 1" v-on:click="changeRank(user._id, 1 - parseInt(user.rank))"><img alt="Logo admin" src="@/assets/logo-admin.png"/></button>
+              <div class="buttons">
+                <button v-on:click="deleteUser(user._id)"><img alt="Logo delete" src="@/assets/logo-delete.png"/></button>
+                <button v-if="user.rank == 0" v-on:click="changeRank(user._id, 1 - parseInt(user.rank))"><img alt="Logo non admin" src="@/assets/logo-non-admin.png"/></button>
+                <button v-if="user.rank == 1" v-on:click="changeRank(user._id, 1 - parseInt(user.rank))"><img alt="Logo admin" src="@/assets/logo-admin.png"/></button>
+              </div>
             </td>
             </tr>
         </table>
+      </div>
     </div>
   </template>
   
@@ -63,9 +74,11 @@ export default {
             return this.$data.users
         },
         changeRank(id, rank) {
-            axiosClient.post('/auth/setRank', 
+          let obj = this
+          axiosClient.post('/auth/setRank', 
             {id: id, rank: rank}
                 ).then(function (response) {
+                    obj.init()
                     console.log(response)
                     toast.success('Modification réussie !');
                 }).catch(function (error) {
@@ -74,16 +87,18 @@ export default {
                 });
         },
         deleteUser(id) {
-            axiosClient.post('/auth/delete', 
+          let obj = this
+          axiosClient.post('/auth/delete', 
             {id: id}
             ).then(function (response) {
+                obj.init()
                 console.log(response)
                 toast.success('Suppression réussie !');
                 }).catch(function (error) {
                     console.log(error);
                     toast.error('Erreur lors de la suppression.');
                 });
-        }
+                }
       },
       beforeMount: function() {
         // use is when page changes
@@ -97,17 +112,13 @@ export default {
       },
       updated: function() {
         // use it when only parameter changes
-        this.init()
+        // this.init()
       },
 }
 </script>
   
   <!-- Add "scoped" attribute to limit CSS to this component only -->
   <style scoped>
-  h3 {
-    margin: 40px 0 0;
-  }
-
   a {
     color: #42b983;
   }
@@ -115,8 +126,30 @@ export default {
   .admin {
     display: flex;
     flex-direction: column;
+    align-items: center;
   }
 
+  .admin .actions {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .admin .actions img {
+    width: 80px;
+  }
+
+  .admin .action {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .admin .accountmanagement {
+    margin: 40px 0;
+  }
+  .admin table {
+    width: 60vw;
+  }
   .admin th {
     background-color: #DBDBDB;
   }
@@ -124,8 +157,34 @@ export default {
     border: 1px solid #BDBDBD;
   }
 
+  .admin td .buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+  
   .admin td img {
     width: 25px;
     height: 25px;
   }
+
+@media only screen and (min-width: 1200px){
+
+  .admin table {
+    width: 40vw;
+  }
+}
+
+@media only screen and (min-width: 1980px){
+
+  .admin .actions {
+    width: 60vw;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+
+  .admin table {
+    width: 20vw;
+  }
+}
   </style>

@@ -15,7 +15,7 @@
         <div class="deficiency">
           <router-link :to="'/formulaire?id=' + article.id" id="back">Retournez à l'article</router-link>
           <form @submit.prevent="submitForm">
-            <h1>titre</h1>
+            <h1>Titre</h1>
             <textarea
               contentEditable="true"
               class="txt_field txt_title"
@@ -57,31 +57,37 @@
               v-model="article.procedures"
               ></textarea>
     
-            <p>Pour insérer un lien URL, veuillez rédiger ce dernier sous le format suivant:</p>
-            <p><b>syntaxe:</b>Nom|URL</p>
-            <p><b>exemple:</b>Google|https://www.google.com</p>
-              <h3>En savoir plus</h3>
-              <textarea
-                id="additional"
-                contentEditable="true"
-                class="txt_field"
-                v-on:change="resize()"
-                v-model="article.additional"
-              ></textarea>
-              <h3>Fiches liées</h3>
-              <textarea
-                id="related"
-                contentEditable="true"
-                class="txt_field"
-                v-on:update="resize()"
-                v-model="article.related"
-              ></textarea>
-    
-              <div class="cud_articles">
-                <button class="btn btn-primary btn-lg btn-block" v-if="!isArticle()" v-on:click="createArticle()">Créer</button>
-                <button class="btn btn-success btn-lg btn-block" v-if="isArticle()" v-on:click="updateArticle()">Modifier</button>
-                <button class="btn btn-danger btn-lg btn-block" v-if="isArticle()" v-on:click="deleteArticle()">Supprimer</button>
+            <div class="link-instructions-container">
+              <div class="link-instructions">
+                <h3>Insérer un lien URL</h3>
+                <p>Pour insérer un lien URL, veuillez rédiger ce dernier sous le format suivant:</p>
+                <p><b>Syntaxe:</b> Nom|URL</p>
+                <p><b>Exemple:</b> Google|https://www.google.com</p>
               </div>
+            </div>
+
+            <h3>En savoir plus</h3>
+            <textarea
+              id="additional"
+              contentEditable="true"
+              class="txt_field"
+              v-on:change="resize()"
+              v-model="article.additional"
+            ></textarea>
+            <h3>Fiches liées</h3>
+            <textarea
+              id="related"
+              contentEditable="true"
+              class="txt_field"
+              v-on:update="resize()"
+              v-model="article.related"
+            ></textarea>
+    
+            <div class="cud_articles">
+              <button class="btn btn-primary btn-lg btn-block" v-if="!isArticle()" v-on:click="createArticle()">Créer</button>
+              <button class="btn btn-success btn-lg btn-block" v-if="isArticle()" v-on:click="updateArticle()">Modifier</button>
+              <button class="btn btn-danger btn-lg btn-block" v-if="isArticle()" v-on:click="deleteArticle()">Supprimer</button>
+            </div>
             </form>
           </div>
       </template>
@@ -237,8 +243,14 @@
       </script>
       
       <style scoped>
+        h1{
+          font-style: italic;
+          font-weight: 700;
+        }
         h3 {
           margin: 40px 0 0;
+          font-style: italic;
+          font-weight: 700;
         }
         ul {
           list-style-type: none;
@@ -267,6 +279,24 @@
         .cud_articles button {
           /* flex: auto; */
           margin: 10px;
+        }
+        .link-instructions-container {
+          display: flex;
+          justify-content: center;
+          margin-top: 30px;
+          margin-bottom: 10px;
+        }
+        .link-instructions {
+          border: 1px solid #ccc;
+          padding: 20px;
+          border-radius: 5px;
+          background-color: #f9f9f9;
+        }
+
+        .link-instructions h3 {
+          margin-top: 0;
+          font-style: italic;
+          font-weight: 700;
         }
       </style>
         
