@@ -17,14 +17,12 @@
                 <input type="email" class="form-control form-control-lg" v-model="email"/>
             </div>
             <div class="mb-3">
-                <label>Ancien Mot de passe</label>
+                <label>Ancien Mot de passe (obligatoire)</label>
                 <input :type="showPassword ? 'text' : 'password'" class="form-control form-control-lg" v-model="password"/> 
-                <input type="checkbox" @click="showPassword = !showPassword"> Afficher mot de passe
             </div>
             <div class="mb-3">
-                <label>Nouveau Mot de passe</label>
+                <label>Nouveau Mot de passe (optionnel)</label>
                 <input :type="showPassword ? 'text' : 'password'" class="form-control form-control-lg" v-model="new_password"/> <!-- possible bug -->
-                <input type="checkbox" @click="showPassword = !showPassword"> Afficher mot de passe
             </div>
             <button class="btn btn-dark btn-lg btn-block">Modifier le compte</button>
         </form>
@@ -58,26 +56,46 @@ export default {
             this.$data.id = this.$store.getters.id;
 
         },
-        
-        submitForm() {
-            if (!this.checkPasswordLength(this.new_password)) {
-                toast.error("Le mot de passe doit contenir plus de 8 caractères");
-            } else {
+        updateUser(){
+            //create a temporary email variable to not force the user to change his email
+            let temp_email = this.email;
+                if(temp_email == this.$store.getters.email){
+                    temp_email = '';
+                }
+                if(this.new_password == ''){
+                    this.new_password= this.password;
+                }
                 axiosClient.post('auth/update', { 
                     id: this.id,
                     firstName: this.firstName,
                     lastName: this.lastName,
-                    email: this.email,
+                    email: temp_email,
                     password: this.password,
                     new_password: this.new_password
                 }).then(response => {
                     console.log(response);
                     toast.success('Compte modifié avec succès!');
-                    this.resetForm();
+                    this.$store.commit('setLoggedIn'); // Set isLoggedIn to true
+                    this.$store.commit('setFirstname', this.firstName);
+                    this.$store.commit('setLastname', this.lastName);
+                    this.$store.commit('setEmail', this.email);
+                    this.$store.commit('setId', this.id);
+                    this.$router.push('/'); // Redirection to path "/" which is the index page
                 }).catch(error => {
                     console.log(error);
                     toast.error('Une erreur s\'est produite lors de la modification du compte.');
-                });            
+                });
+        },
+        
+        submitForm() {
+            if(this.new_password==''){
+                this.updateUser();
+            }
+            else if (!this.checkPasswordLength(this.new_password)) {
+                toast.error("Le mot de passe doit contenir plus de 8 caractères");
+            }
+            else{
+                this.updateUser();
             }
         },
         checkPasswordLength(password) {
