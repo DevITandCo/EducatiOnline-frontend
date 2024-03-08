@@ -121,8 +121,10 @@ export default {
 
 <style>
     .signup-template{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        min-height: 80vh;
+
     }
 </style>

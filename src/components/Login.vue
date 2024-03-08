@@ -61,8 +61,16 @@ export default {
 
 <style>
     .login-template{
-    display: flex;
-    align-items: center;
-    flex-direction: column; 
+        display: flex;
+        align-items: center;
+        flex-direction: column; 
+        min-height: 80vh;
     }
+
+
+@media only screen and (max-width: 1200px){
+    .login-template {
+        min-height: 75vh;
+    }
+}
 </style>

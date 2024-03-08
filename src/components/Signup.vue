@@ -82,9 +82,16 @@ export default {
 
 
 <style>
-    .signup-template{
+.signup-template {
     display: flex;
     align-items: center;
     flex-direction: column;
+    min-height: 80vh;
+}
+
+@media only screen and (max-width: 1200px){
+    .signup-template {
+        min-height: 75vh;
     }
+}
 </style>

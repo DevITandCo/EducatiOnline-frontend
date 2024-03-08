@@ -87,7 +87,14 @@ export default {
   .admin {
     display: flex;
     flex-direction: column;
+    min-height: 80vh;
   }
+
+@media only screen and (max-width: 1200px){
+  .admin {
+    min-height: 75vh;
+  }
+}
 
   .admin th {
     background-color: #DBDBDB;

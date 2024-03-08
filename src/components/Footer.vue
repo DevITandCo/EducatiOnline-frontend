@@ -32,6 +32,7 @@ const isAdmin = computed(() => store.state.isAdmin);
 
 <style>
 .footer {
+    height: 10vh;
     background-color: #0375e3;
     color: #ffffff; 
     padding: 20px;
@@ -60,5 +61,11 @@ const isAdmin = computed(() => store.state.isAdmin);
 
 .company-name {
     font-weight: bold;
+}
+
+@media only screen and (max-width: 1200px){
+    .footer {
+        height: 15vh;
+    }
 }
 </style>

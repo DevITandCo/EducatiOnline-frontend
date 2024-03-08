@@ -87,7 +87,7 @@ const searchDeficiency = () => {
 const filteredList = () => {
     return input.value != "" ? articles.filter(element => 
         element.title.toLowerCase().includes(input.value.toLowerCase())
-    ) : [];
+    ).slice(0, 5) : [];
 };
 
 function clearSearch() {
@@ -114,6 +114,7 @@ function logout() {
     align-items: center;
     justify-content: space-between;
     font-size: 0.9em;
+    height: 10vh;
 }
 
 .header-brand img {
